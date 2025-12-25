@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="estilos.css">
+ 
+
+    <title>Bodega Familiar</title>
+</head>
+<body>
+
+<div class="Contenedor">
+
+    <header class="app-header">
+        <h1> INVENTARIO </h1>
+    </header>
+
+    <!-- Buscador -->
+    <input type="text" id="buscador"placeholder=" Buscar producto...">
+
+    <!-- Lista de productos -->
+    <div id="lista-productos">
+        <p class="loading-msg">Cargando precios...</p>
+    </div>
+
+    <!-- Separador visual -->
+    <div class="separador"></div>
+
+    <!-- Formulario agregar -->
+   <button id="btn-abrir-modal" class="btn-flotante">
+    +
+</button>
+
+<div id="modal-agregar" class="modal-fondo oculto">
+    <div class="modal-contenido">
+        <span id="btn-cerrar-modal" class="cerrar-x">&times;</span>
+        
+        <h3>✨ Nuevo Producto</h3>
+        
+        <input type="text" id="input-nombre" placeholder="Nombre (ej. Arroz)">
+        
+        <div class="input-group">
+            <span class="simbolo-moneda">S/</span>
+            <input type="number" id="input-precio" placeholder="0.00" step="0.10" class="input-con-moneda">
+        </div>
+
+        <input type="text" id="input-categoria" placeholder="Categoría (Opcional)">
+        
+        <button id="btn-guardar">Guardar Producto</button>
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>© 2025 • Benjamin</p>
+
+    </footer>
+
+</div>
+
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
