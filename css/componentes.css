@@ -1,0 +1,264 @@
+/* =========================================
+   1. INPUTS Y SELECTS (Estilo Base Unificado)
+   ========================================= */
+input, select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid transparent; /* Borde invisible inicial */
+    border-radius: 12px;           /* Bordes redondos */
+    background-color: #ffffff;
+    font-size: 15px;
+    color: #333;
+    
+    /* Sombra suave */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    transition: all 0.3s ease;
+    
+    /* Evitar desbordes */
+    box-sizing: border-box; 
+    margin: 0; 
+    margin-bottom: 15px; /* Separación vertical por defecto */
+}
+
+/* Estado Focus (Al escribir) */
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.15);
+}
+
+/* Wrappers para posicionamiento */
+.input-wrapper, 
+.select-wrapper {
+    width: 100%;
+    position: relative; 
+}
+
+/* =========================================
+   2. BUSCADOR Y FILTROS (Específicos)
+   ========================================= */
+
+/* Icono de Lupa en el Buscador */
+#buscador {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%230066ff" d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 1 0 9.5 16c1.6 0 3.1-.6 4.2-1.6l.3.3v.8l5 5L20.5 19z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    padding-left: 50px; /* Espacio para el icono */
+}
+
+/* Flecha personalizada para el Select */
+select {
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    cursor: pointer;
+    
+    /* Flechita azul SVG */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230066FF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: 12px auto;
+    padding-right: 40px; 
+}
+
+select:hover {
+    background-color: #f9f9f9;
+}
+
+/* Contenedor Flex para ponerlos lado a lado */
+.filtros-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+/* En celulares, uno abajo del otro */
+@media (max-width: 480px) {
+    .filtros-container {
+        flex-direction: column; 
+    }
+}
+
+/* =========================================
+   3. INPUT CON MONEDA (S/)
+   ========================================= */
+.input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.simbolo-moneda {
+    position: absolute;
+    left: 15px;
+    top: 50%; /* Centrar verticalmente */
+    transform: translateY(-65%); /* Ajuste fino */
+    color: #555;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+input.input-con-moneda {
+    padding-left: 40px !important; /* Espacio para la S/ */
+}
+
+/* =========================================
+   4. TARJETAS DE PRODUCTO
+   ========================================= */
+.producto-card {
+    background: var(--color-blanco);
+    padding: 20px;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    box-shadow: var(--sombra-suave);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid var(--color-primario); 
+    transition: transform 0.2s ease;
+}
+
+.producto-card:active {
+    transform: scale(0.98);
+}
+
+.info-prod {
+    display: flex;
+    flex-direction: column;
+}
+
+.nombre {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-texto);
+}
+
+.categoria {
+    font-size: 13px;
+    color: #888;
+    margin-top: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: #f0f2f5;
+    padding: 2px 8px;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.precio {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--color-precio);
+}
+
+/* =========================================
+   5. BOTÓN GUARDAR (Dentro del Modal)
+   ========================================= */
+button#btn-guardar {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--color-primario), var(--color-primario-dark));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+button#btn-guardar:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+button#btn-guardar:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* =========================================
+   6. BOTÓN FLOTANTE (FAB)
+   ========================================= */
+.btn-flotante {
+    position: fixed;
+    bottom: 30px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-primario);
+    color: white;
+    border-radius: 50%;
+    border: none;
+    font-size: 35px;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.btn-flotante:active {
+    transform: scale(0.9);
+}
+
+/* =========================================
+   7. VENTANA MODAL
+   ========================================= */
+.modal-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(3px);
+}
+
+.modal-contenido {
+    background-color: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: aparecer 0.3s ease-out;
+}
+
+.modal-contenido h3 {
+    text-align: center;
+    margin-top: 0;
+    color: var(--color-texto);
+}
+
+@keyframes aparecer {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.cerrar-x {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+.cerrar-x:hover { color: #333; }
+
+/* Utilidades */
+.loading-msg { text-align: center; color: #777; margin-top: 20px; }
+.separador { height: 20px; }

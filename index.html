@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="estilos.css">
- 
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/componentes.css">
 
     <title>Bodega Familiar</title>
 </head>
@@ -13,11 +13,22 @@
 <div class="Contenedor">
 
     <header class="app-header">
-        <h1> INVENTARIO </h1>
+        <h1> BODEGAPP </h1>
     </header>
 
-    <!-- Buscador -->
-    <input type="text" id="buscador"placeholder=" Buscar producto...">
+
+    <div class="filtros-container">
+    <div class="input-wrapper">
+        <input type="text" id="buscador" placeholder="🔍 Buscar producto...">
+    </div>
+
+    <div class="select-wrapper">
+        <select id="filtro-orden">
+            <option value="menor-precio">📉 Precio: Menor a Mayor</option>
+            <option value="mayor-precio">📈 Precio: Mayor a Menor</option>
+        </select>
+        </div>
+    </div>  
 
     <!-- Lista de productos -->
     <div id="lista-productos">
@@ -28,15 +39,13 @@
     <div class="separador"></div>
 
     <!-- Formulario agregar -->
-   <button id="btn-abrir-modal" class="btn-flotante">
-    +
-</button>
+   <button id="btn-abrir-modal" class="btn-flotante">+</button>
 
 <div id="modal-agregar" class="modal-fondo oculto">
     <div class="modal-contenido">
         <span id="btn-cerrar-modal" class="cerrar-x">&times;</span>
         
-        <h3>✨ Nuevo Producto</h3>
+        <h3> Nuevo Producto</h3>
         
         <input type="text" id="input-nombre" placeholder="Nombre (ej. Arroz)">
         
@@ -59,7 +68,7 @@
 
 </div>
 
-<script type="module" src="app.js"></script>
+<script type="module" src="js/app.js"></script>
 
 </body>
 </html>
