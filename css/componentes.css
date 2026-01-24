@@ -4,8 +4,8 @@
 input, select {
     width: 100%;
     padding: 14px 16px;
-    border: 2px solid transparent; /* Borde invisible inicial */
-    border-radius: 12px;           /* Bordes redondos */
+    border: 2px solid transparent; 
+    border-radius: 12px;           
     background-color: #ffffff;
     font-size: 15px;
     color: #333;
@@ -17,17 +17,16 @@ input, select {
     /* Evitar desbordes */
     box-sizing: border-box; 
     margin: 0; 
-    margin-bottom: 15px; /* Separación vertical por defecto */
+    margin-bottom: 15px; 
 }
 
-/* Estado Focus (Al escribir) */
+/* Estado Focus */
 input:focus, select:focus {
     outline: none;
     border-color: var(--color-primario);
     box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.15);
 }
 
-/* Wrappers para posicionamiento */
 .input-wrapper, 
 .select-wrapper {
     width: 100%;
@@ -35,25 +34,19 @@ input:focus, select:focus {
 }
 
 /* =========================================
-   2. BUSCADOR Y FILTROS (Específicos)
+   2. BUSCADOR Y FILTROS
    ========================================= */
-
-/* Icono de Lupa en el Buscador */
 #buscador {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%230066ff" d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 1 0 9.5 16c1.6 0 3.1-.6 4.2-1.6l.3.3v.8l5 5L20.5 19z"/></svg>');
     background-repeat: no-repeat;
     background-position: 15px center;
-    padding-left: 50px; /* Espacio para el icono */
+    padding-left: 50px; 
 }
 
-/* Flecha personalizada para el Select */
 select {
     appearance: none; 
     -webkit-appearance: none; 
-    -moz-appearance: none;
     cursor: pointer;
-    
-    /* Flechita azul SVG */
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230066FF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
     background-position: right 15px top 50%;
@@ -61,11 +54,8 @@ select {
     padding-right: 40px; 
 }
 
-select:hover {
-    background-color: #f9f9f9;
-}
+select:hover { background-color: #f9f9f9; }
 
-/* Contenedor Flex para ponerlos lado a lado */
 .filtros-container {
     display: flex;
     gap: 12px;
@@ -73,11 +63,8 @@ select:hover {
     align-items: center;
 }
 
-/* En celulares, uno abajo del otro */
 @media (max-width: 480px) {
-    .filtros-container {
-        flex-direction: column; 
-    }
+    .filtros-container { flex-direction: column; }
 }
 
 /* =========================================
@@ -92,8 +79,8 @@ select:hover {
 .simbolo-moneda {
     position: absolute;
     left: 15px;
-    top: 50%; /* Centrar verticalmente */
-    transform: translateY(-65%); /* Ajuste fino */
+    top: 50%; 
+    transform: translateY(-65%); 
     color: #555;
     font-weight: bold;
     font-size: 16px;
@@ -101,9 +88,7 @@ select:hover {
     pointer-events: none;
 }
 
-input.input-con-moneda {
-    padding-left: 40px !important; /* Espacio para la S/ */
-}
+input.input-con-moneda { padding-left: 40px !important; }
 
 /* =========================================
    4. TARJETAS DE PRODUCTO
@@ -121,9 +106,7 @@ input.input-con-moneda {
     transition: transform 0.2s ease;
 }
 
-.producto-card:active {
-    transform: scale(0.98);
-}
+.producto-card:active { transform: scale(0.98); }
 
 .info-prod {
     display: flex;
@@ -155,7 +138,7 @@ input.input-con-moneda {
 }
 
 /* =========================================
-   5. BOTÓN GUARDAR (Dentro del Modal)
+   5. BOTÓN GUARDAR
    ========================================= */
 button#btn-guardar {
     width: 100%;
@@ -183,34 +166,105 @@ button#btn-guardar:active {
 }
 
 /* =========================================
-   6. BOTÓN FLOTANTE (FAB)
+   6. MENÚ FLOTANTE (SPEED DIAL)
    ========================================= */
-.btn-flotante {
+.fab-container {
     position: fixed;
     bottom: 30px;
     right: 25px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.btn-flotante-principal {
     width: 60px;
     height: 60px;
     background-color: var(--color-primario);
     color: white;
     border-radius: 50%;
     border: none;
-    font-size: 35px;
+    font-size: 30px;
     box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
     cursor: pointer;
-    z-index: 1000;
+    transition: transform 0.3s;
+    z-index: 1001;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s;
 }
 
-.btn-flotante:active {
-    transform: scale(0.9);
+.btn-flotante-principal.abierto {
+    transform: rotate(90deg);
+    background-color: #333;
+}
+
+.fab-opciones {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.fab-opciones.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.fab-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fab-item.verde { background-color: #00c853; }
+.fab-item.rojo { background-color: #d50000; }
+
+
+/* =========================================
+   7. MODO BORRAR (ESTO FALTABA)
+   ========================================= */
+/* Borde rojo y animación al activar modo borrar */
+.modo-borrar .producto-card {
+    border-left: 5px solid #d50000 !important; 
+    animation: temblor 0.3s infinite alternate;
+    background-color: #fff5f5; /* Fondo rojizo suave */
+}
+
+/* Animación de temblor */
+@keyframes temblor {
+    from { transform: rotate(0.5deg); }
+    to { transform: rotate(-0.5deg); }
+}
+
+/* Botón Eliminar dentro de la tarjeta */
+.btn-eliminar-card {
+    background: #d50000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(213, 0, 0, 0.3);
 }
 
 /* =========================================
-   7. VENTANA MODAL
+   8. VENTANA MODAL
    ========================================= */
 .modal-fondo {
     position: fixed;
