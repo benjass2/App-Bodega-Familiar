@@ -30,7 +30,7 @@ input:focus, select:focus {
 .input-wrapper, 
 .select-wrapper {
     width: 100%;
-    position: relative; 
+    position: relative;
 }
 
 /* =========================================

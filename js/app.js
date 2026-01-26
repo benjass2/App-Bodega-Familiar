@@ -1,206 +1,197 @@
 // ==========================================
-// 1. IMPORTACIONES (Firebase moderno)
+// 1. IMPORTACIONES (MODULARIZACIÓN)
 // ==========================================
-import {
-  addDoc,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+// Traemos la lógica de DB desde la carpeta services
+import { 
+    escucharProductos, 
+    guardarProducto, 
+    eliminarProducto 
+} from "./services/productos.js";
 
-import { productosRef, db } from "./firebase.js";
+// Traemos el diseño HTML desde la carpeta ui
+import { crearTarjetaHTML } from "./ui/tarjetas.js";
 
-console.log("✅ app.js cargado correctamente");
+console.log("¡Sistema Modular Cargado Exitosamente!");
 
 // ==========================================
 // 2. ESTADO GLOBAL
 // ==========================================
-let productosGlobales = [];
-let modoBorrarActivo = false;
+let productosGlobales = []; // Aquí guardaremos la copia de los datos
+let modoBorrarActivo = false; // Interruptor del modo borrar
 
 // ==========================================
-// 3. REFERENCIAS DOM
+// 3. REFERENCIAS DEL DOM (Elementos HTML)
 // ==========================================
+const listaDiv = document.getElementById("lista-productos");
+const modal = document.getElementById("modal-agregar");
+const btnGuardar = document.getElementById("btn-guardar");
+
+// Referencias del Menú Flotante
 const btnFabPrincipal = document.getElementById("btn-fab-principal");
 const menuOpciones = document.getElementById("fab-menu");
 const btnOpcionAgregar = document.getElementById("btn-opcion-agregar");
 const btnOpcionBorrar = document.getElementById("btn-opcion-borrar");
-const modal = document.getElementById("modal-agregar");
-const listaDiv = document.getElementById("lista-productos");
+
+// Referencias de Filtros
+const inputBuscador = document.getElementById("buscador");
+const selectOrden = document.getElementById("filtro-orden");
+
 
 // ==========================================
-// 4. MENÚ FLOTANTE
+// 4. LÓGICA PRINCIPAL (CONTROLADOR)
 // ==========================================
+
+// A. INICIAR LA ESCUCHA (Suscripción a Firebase)
+// Esta función se ejecuta sola cada vez que hay cambios en la DB
+escucharProductos((nuevosProductos) => {
+    productosGlobales = nuevosProductos; // Actualizamos nuestro array
+    renderizarLista(); // Repintamos la pantalla
+});
+
+// B. FUNCIÓN MAESTRA DE RENDERIZADO
+function renderizarLista() {
+    listaDiv.innerHTML = "";
+    
+    // 1. Procesar datos (Filtrar y Ordenar)
+    // Usamos una función auxiliar para no ensuciar aquí
+    const productosProcesados = procesarDatos(productosGlobales);
+
+    // 2. Validar si hay resultados
+    if (productosProcesados.length === 0) {
+        listaDiv.innerHTML = "<p style='text-align:center; color:#777;'>No se encontraron productos.</p>";
+        return;
+    }
+
+    // 3. Generar HTML (Usando la función importada de UI)
+    // Creamos un solo string gigante con map y join
+    const htmlFinal = productosProcesados
+        .map(producto => crearTarjetaHTML(producto, modoBorrarActivo))
+        .join("");
+
+    // 4. Inyectar al DOM (Una sola vez para mejor rendimiento)
+    listaDiv.innerHTML = htmlFinal;
+}
+
+// C. HELPER: FILTRAR Y ORDENAR
+function procesarDatos(lista) {
+    const texto = inputBuscador?.value.toLowerCase() || "";
+    const orden = selectOrden?.value || "menor-precio";
+
+    // Filtrar
+    let resultado = lista.filter(p => (p.nombre || "").toLowerCase().includes(texto));
+
+    // Ordenar
+    resultado.sort((a, b) => {
+        const precioA = Number(a.precio) || 0;
+        const precioB = Number(b.precio) || 0;
+        return orden === "mayor-precio" ? precioB - precioA : precioA - precioB;
+    });
+
+    return resultado;
+}
+
+
+// ==========================================
+// 5. MANEJO DE EVENTOS (INTERACCIONES)
+// ==========================================
+
+// --- EVENTO: GUARDAR PRODUCTO ---
+if (btnGuardar) {
+    btnGuardar.addEventListener("click", async () => {
+        const nombre = document.getElementById("input-nombre").value.trim();
+        const precio = document.getElementById("input-precio").value;
+        const categoria = document.getElementById("input-categoria").value.trim();
+
+        if (!nombre || !precio) {
+            alert("⚠️ Falta completar nombre o precio");
+            return;
+        }
+
+        try {
+            btnGuardar.disabled = true;
+            btnGuardar.textContent = "Guardando...";
+
+            // Llamamos al servicio (No sabemos nada de Firebase aquí)
+            await guardarProducto({ nombre, precio, categoria });
+
+            // Limpieza
+            document.getElementById("input-nombre").value = "";
+            document.getElementById("input-precio").value = "";
+            document.getElementById("input-categoria").value = "";
+            
+            modal.classList.add("oculto");
+            alert("✅ Producto guardado");
+
+        } catch (error) {
+            console.error(error);
+            alert("❌ Error al guardar");
+        } finally {
+            btnGuardar.disabled = false;
+            btnGuardar.textContent = "Guardar Producto";
+        }
+    });
+}
+
+// --- EVENTO: ELIMINAR (Delegación) ---
+listaDiv.addEventListener("click", async (e) => {
+    // Buscamos si el clic fue en un botón eliminar (o en su ícono)
+    const btn = e.target.closest(".btn-eliminar-card");
+    
+    if (btn) {
+        const { id, nombre } = btn.dataset; // Extraemos datos del botón
+        
+        if (confirm(`¿Estás seguro de eliminar: ${nombre}?`)) {
+            try {
+                await eliminarProducto(id); // Llamamos al servicio
+                // No hace falta alert, se borra solo de la vista
+            } catch (error) {
+                console.error(error);
+                alert("Error al intentar borrar.");
+            }
+        }
+    }
+});
+
+// --- EVENTOS: FILTROS ---
+inputBuscador?.addEventListener("keyup", renderizarLista);
+selectOrden?.addEventListener("change", renderizarLista);
+
+// --- EVENTOS: MENÚ FLOTANTE ---
 btnFabPrincipal?.addEventListener("click", () => {
-  menuOpciones.classList.toggle("mostrar");
-  btnFabPrincipal.classList.toggle("abierto");
+    menuOpciones.classList.toggle("mostrar");
+    btnFabPrincipal.classList.toggle("abierto");
 });
 
+// Botón Agregar del menú
 btnOpcionAgregar?.addEventListener("click", () => {
-  modal.classList.remove("oculto");
-  cerrarMenuFab();
+    modal.classList.remove("oculto");
+    cerrarMenuFab();
 });
 
+// Botón Borrar (Toggle Modo)
 btnOpcionBorrar?.addEventListener("click", () => {
-  modoBorrarActivo = !modoBorrarActivo;
+    modoBorrarActivo = !modoBorrarActivo; // Cambiar true/false
 
-  if (modoBorrarActivo) {
-    alert("🔴 MODO BORRAR ACTIVADO");
-    document.body.classList.add("modo-borrar");
-  } else {
-    alert("⚪ Modo borrar desactivado");
-    document.body.classList.remove("modo-borrar");
-  }
+    if (modoBorrarActivo) {
+        document.body.classList.add("modo-borrar");
+        alert("🔴 MODO BORRAR ACTIVADO");
+    } else {
+        document.body.classList.remove("modo-borrar");
+        alert("⚪ Modo borrar desactivado");
+    }
 
-  renderizarLista();
-  cerrarMenuFab();
+    renderizarLista(); // Repintar para mostrar/ocultar botones rojos
+    cerrarMenuFab();
 });
 
 function cerrarMenuFab() {
-  menuOpciones.classList.remove("mostrar");
-  btnFabPrincipal.classList.remove("abierto");
+    menuOpciones.classList.remove("mostrar");
+    btnFabPrincipal.classList.remove("abierto");
 }
 
-// ==========================================
-// 5. MODAL
-// ==========================================
+// --- EVENTOS: MODAL ---
 const btnCerrarModal = document.getElementById("btn-cerrar-modal");
-
 btnCerrarModal?.addEventListener("click", () => modal.classList.add("oculto"));
-window.addEventListener("click", e => {
-  if (e.target === modal) modal.classList.add("oculto");
-});
-
-// ==========================================
-// 6. LEER FIRESTORE (SNAPSHOT)
-// ==========================================
-const q = query(productosRef, orderBy("fecha", "desc"));
-
-onSnapshot(q, snapshot => {
-  productosGlobales = [];
-
-  snapshot.forEach(documento => {
-    productosGlobales.push({
-      id: documento.id,
-      ...documento.data()
-    });
-  });
-
-  renderizarLista();
-});
-
-// ==========================================
-// 7. RENDERIZAR LISTA
-// ==========================================
-function renderizarLista() {
-  const filtroOrden = document.getElementById("filtro-orden")?.value || "menor-precio";
-  const textoBusqueda = document.getElementById("buscador")?.value.toLowerCase() || "";
-
-  listaDiv.innerHTML = "";
-
-  let listaFiltrada = productosGlobales.filter(p =>
-    (p.nombre || "").toLowerCase().includes(textoBusqueda)
-  );
-
-  listaFiltrada.sort((a, b) => {
-    const pa = Number(a.precio) || 0;
-    const pb = Number(b.precio) || 0;
-    return filtroOrden === "mayor-precio" ? pb - pa : pa - pb;
-  });
-
-  if (listaFiltrada.length === 0) {
-    listaDiv.innerHTML = "<p style='text-align:center'>No hay productos.</p>";
-    return;
-  }
-
-  listaFiltrada.forEach(p => {
-    const precioSeguro = Number(p.precio) || 0;
-
-    const derecha = modoBorrarActivo
-      ? `<button class="btn-eliminar-card" data-id="${p.id}" data-nombre="${p.nombre}">
-           ELIMINAR
-         </button>`
-      : `<span class="precio">S/ ${precioSeguro.toFixed(2)}</span>`;
-
-    listaDiv.innerHTML += `
-      <div class="producto-card">
-        <div class="info-prod">
-          <span class="nombre">${p.nombre}</span>
-          <span class="categoria">${p.categoria || "General"}</span>
-        </div>
-        ${derecha}
-      </div>
-    `;
-  });
-}
-
-// ==========================================
-// 8. BUSCADOR Y ORDEN
-// ==========================================
-document.getElementById("buscador")?.addEventListener("keyup", renderizarLista);
-document.getElementById("filtro-orden")?.addEventListener("change", renderizarLista);
-
-// ==========================================
-// 9. GUARDAR PRODUCTO
-// ==========================================
-const btnGuardar = document.getElementById("btn-guardar");
-
-btnGuardar?.addEventListener("click", async () => {
-  const nombre = document.getElementById("input-nombre").value.trim();
-  const precio = document.getElementById("input-precio").value;
-  const categoria = document.getElementById("input-categoria").value.trim();
-
-  if (!nombre || !precio) {
-    alert("Falta nombre o precio");
-    return;
-  }
-
-  try {
-    btnGuardar.disabled = true;
-    btnGuardar.textContent = "Guardando...";
-
-    await addDoc(productosRef, {
-      nombre,
-      precio: Number(precio),
-      categoria,
-      fecha: new Date()
-    });
-
-    document.getElementById("input-nombre").value = "";
-    document.getElementById("input-precio").value = "";
-    document.getElementById("input-categoria").value = "";
-
-    modal.classList.add("oculto");
-    alert("✅ Producto guardado");
-
-  } catch (err) {
-    console.error(err);
-    alert("❌ Error al guardar");
-  } finally {
-    btnGuardar.disabled = false;
-    btnGuardar.textContent = "Guardar Producto";
-  }
-});
-
-// ==========================================
-// 10. ELIMINAR PRODUCTO (Delegación)
-// ==========================================
-listaDiv?.addEventListener("click", async e => {
-  const btn = e.target.closest(".btn-eliminar-card");
-  if (!btn) return;
-
-  const id = btn.dataset.id;
-  const nombre = btn.dataset.nombre;
-
-  if (confirm(`¿Eliminar ${nombre}?`)) {
-    try {
-      await deleteDoc(doc(db, "productos", id));
-      alert("🗑️ Producto eliminado");
-    } catch (err) {
-      console.error(err);
-      alert("Error al eliminar");
-    }
-  }
+window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.classList.add("oculto");
 });
