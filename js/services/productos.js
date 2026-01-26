@@ -10,7 +10,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 
-import { productosRef, db } from "./js/firebase.js";
+import { productosRef, db } from "../firebase.js";
 
 //1.Guardar
 export async function guardarProducto(datos){
