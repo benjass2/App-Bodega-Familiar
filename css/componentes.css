@@ -1,60 +1,58 @@
-/* =========================================
-   1. INPUTS Y SELECTS (Estilo Base Unificado)
-   ========================================= */
-input, select {
+/* =========================================================
+   1. INPUTS, SELECTS Y CAMPOS DE FORMULARIO
+   ========================================================= */
+input,
+select {
     width: 100%;
     padding: 14px 16px;
-    border: 2px solid transparent; 
-    border-radius: 12px;           
+    border: 2px solid transparent;
+    border-radius: 12px;
     background-color: #ffffff;
     font-size: 15px;
     color: #333;
-    
-    /* Sombra suave */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    box-sizing: border-box;
+    margin: 0 0 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
-    
-    /* Evitar desbordes */
-    box-sizing: border-box; 
-    margin: 0; 
-    margin-bottom: 15px; 
 }
 
-/* Estado Focus */
-input:focus, select:focus {
+input:focus,
+select:focus {
     outline: none;
     border-color: var(--color-primario);
     box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.15);
 }
 
-.input-wrapper, 
+.input-wrapper,
 .select-wrapper {
     width: 100%;
     position: relative;
 }
 
-/* =========================================
+/* =========================================================
    2. BUSCADOR Y FILTROS
-   ========================================= */
+   ========================================================= */
 #buscador {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%230066ff" d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 1 0 9.5 16c1.6 0 3.1-.6 4.2-1.6l.3.3v.8l5 5L20.5 19z"/></svg>');
     background-repeat: no-repeat;
     background-position: 15px center;
-    padding-left: 50px; 
+    padding-left: 50px;
 }
 
 select {
-    appearance: none; 
-    -webkit-appearance: none; 
+    appearance: none;
+    -webkit-appearance: none;
     cursor: pointer;
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230066FF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='292.4' height='292.4'%3E%3Cpath fill='%230066FF' d='M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 15px top 50%;
-    background-size: 12px auto;
-    padding-right: 40px; 
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 40px;
 }
 
-select:hover { background-color: #f9f9f9; }
+select:hover {
+    background-color: #f9f9f9;
+}
 
 .filtros-container {
     display: flex;
@@ -64,12 +62,14 @@ select:hover { background-color: #f9f9f9; }
 }
 
 @media (max-width: 480px) {
-    .filtros-container { flex-direction: column; }
+    .filtros-container {
+        flex-direction: column;
+    }
 }
 
-/* =========================================
-   3. INPUT CON MONEDA (S/)
-   ========================================= */
+/* =========================================================
+   3. INPUT CON MONEDA
+   ========================================================= */
 .input-group {
     position: relative;
     width: 100%;
@@ -79,20 +79,21 @@ select:hover { background-color: #f9f9f9; }
 .simbolo-moneda {
     position: absolute;
     left: 15px;
-    top: 50%; 
-    transform: translateY(-65%); 
-    color: #555;
+    top: 50%;
+    transform: translateY(-65%);
     font-weight: bold;
     font-size: 16px;
-    z-index: 10;
+    color: #555;
     pointer-events: none;
 }
 
-input.input-con-moneda { padding-left: 40px !important; }
+.input-con-moneda {
+    padding-left: 40px !important;
+}
 
-/* =========================================
+/* =========================================================
    4. TARJETAS DE PRODUCTO
-   ========================================= */
+   ========================================================= */
 .producto-card {
     background: var(--color-blanco);
     padding: 20px;
@@ -102,11 +103,13 @@ input.input-con-moneda { padding-left: 40px !important; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 5px solid var(--color-primario); 
+    border-left: 5px solid var(--color-primario);
     transition: transform 0.2s ease;
 }
 
-.producto-card:active { transform: scale(0.98); }
+.producto-card:active {
+    transform: scale(0.98);
+}
 
 .info-prod {
     display: flex;
@@ -121,10 +124,10 @@ input.input-con-moneda { padding-left: 40px !important; }
 
 .categoria {
     font-size: 13px;
-    color: #888;
     margin-top: 5px;
     text-transform: uppercase;
     font-weight: 500;
+    color: #888;
     background-color: #f0f2f5;
     padding: 2px 8px;
     border-radius: 4px;
@@ -137,37 +140,104 @@ input.input-con-moneda { padding-left: 40px !important; }
     color: var(--color-precio);
 }
 
-/* =========================================
-   5. BOTÓN GUARDAR
-   ========================================= */
-button#btn-guardar {
+/* Badges */
+.detalles-extra {
+    display: flex;
+    gap: 5px;
+    margin: 4px 0;
+    flex-wrap: wrap;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.badge.marca { font-weight: 500; color: #0f172a; }
+.badge.medida { color: #059669; }
+
+/* =========================================================
+   5. BOTONES EN TARJETA
+   ========================================================= */
+.acciones-card,
+.accion-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-editar-card {
+    background-color: #ffffff;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-editar-card:hover {
+    background-color: #f6f9ab;
+    transform: scale(1.1);
+}
+
+.btn-editar-card:active {
+    transform: scale(0.95);
+}
+
+.btn-eliminar-card {
+    background: #d50000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* =========================================================
+   6. MODO BORRAR
+   ========================================================= */
+.modo-borrar .producto-card {
+    border-left-color: #d50000 !important;
+    background-color: #fff5f5;
+    animation: temblor 0.3s infinite alternate;
+}
+
+@keyframes temblor {
+    from { transform: rotate(0.5deg); }
+    to   { transform: rotate(-0.5deg); }
+}
+
+/* =========================================================
+   7. BOTÓN GUARDAR
+   ========================================================= */
+#btn-guardar {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, var(--color-primario), var(--color-primario-dark));
-    color: white;
     border: none;
     border-radius: 12px;
     font-size: 17px;
     font-weight: 600;
     cursor: pointer;
+    color: white;
+    background: linear-gradient(135deg, var(--color-primario), var(--color-primario-dark));
     box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
     transition: all 0.2s ease;
-    margin-top: 10px;
 }
 
-button#btn-guardar:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-}
-
-button#btn-guardar:active {
-    transform: translateY(2px);
-    box-shadow: none;
-}
-
-/* =========================================
-   6. MENÚ FLOTANTE (SPEED DIAL)
-   ========================================= */
+/* =========================================================
+   8. MENÚ FLOTANTE (FAB)
+   ========================================================= */
 .fab-container {
     position: fixed;
     bottom: 30px;
@@ -182,23 +252,15 @@ button#btn-guardar:active {
 .btn-flotante-principal {
     width: 60px;
     height: 60px;
-    background-color: var(--color-primario);
-    color: white;
     border-radius: 50%;
     border: none;
     font-size: 30px;
-    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
     cursor: pointer;
-    transition: transform 0.3s;
-    z-index: 1001;
+    background-color: var(--color-primario);
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.btn-flotante-principal.abierto {
-    transform: rotate(90deg);
-    background-color: #333;
 }
 
 .fab-opciones {
@@ -217,153 +279,25 @@ button#btn-guardar:active {
     transform: translateY(0);
 }
 
-.fab-item {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    color: white;
-    font-size: 20px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.fab-item.verde { background-color: #00c853; }
-.fab-item.rojo { background-color: #d50000; }
-
-
-
-/* Borde rojo y animación al activar modo borrar */
-.modo-borrar .producto-card {
-    border-left: 5px solid #d50000 !important; 
-    animation: temblor 0.3s infinite alternate;
-    background-color: #fff5f5; /* Fondo rojizo suave */
-}
-
-/* Animación de temblor */
-@keyframes temblor {
-    from { transform: rotate(0.5deg); }
-    to { transform: rotate(-0.5deg); }
-}
-
-/* Botón Eliminar dentro de la tarjeta */
-.btn-eliminar-card {
-    background: #d50000;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(213, 0, 0, 0.3);
-}
-
-/* =========================================
-   8. VENTANA MODAL
-   ========================================= */
+/* =========================================================
+   9. MODAL
+   ========================================================= */
 .modal-fondo {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    inset: 0;
+    background: rgba(0,0,0,0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    backdrop-filter: blur(3px);
-}
-
-.modal-contenido {
-    background-color: white;
-    padding: 25px;
-    border-radius: 20px;
-    width: 85%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    animation: aparecer 0.3s ease-out;
-}
-
-.modal-contenido h3 {
-    text-align: center;
-    margin-top: 0;
-    color: var(--color-texto);
-}
-
-@keyframes aparecer {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
 }
 
 .cerrar-x {
-    background:none;
-    border:none;
-    cursor:pointer;
-    font-size:1.5rem;
     position: absolute;
     top: 15px;
     right: 20px;
     font-size: 28px;
-    font-weight: bold;
-    color: #aaa;
-    cursor: pointer;
-}
-.cerrar-x:hover { color: #333; }
-
-/* Utilidades */
-.loading-msg { text-align: center; color: #777; margin-top: 20px; }
-.separador { height: 20px; }
-
-
-
-
-/*Boton editar productos*/
-.btn-editar-card{
-    background-color: #ffffff; /* Gris muy clarito */
+    background: none;
     border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;        /* Totalmente redondo */
     cursor: pointer;
-    font-size: 1.1rem;         /* Tamaño del emoji */
-    
-    /* Para centrar el emoji perfectamente */
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    
-    transition: all 0.2s ease; /* Animación suave */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-
-.accion-buttons{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.acciones-card {
-    display: flex;
-    align-items: center;
-    gap: 12px; 
-}
-
-.btn-editar-card:hover {
-    background-color: #f6f9ab; /* Un poco más oscuro al pasar el mouse */
-    transform: scale(1.1);     /* Crece un poquito (Efecto Pop) */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.btn-editar-card:active {
-    transform: scale(0.95);    /* Se achica al hacer click */
-}
-
-
-
-
-

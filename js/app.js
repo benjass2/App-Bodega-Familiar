@@ -93,10 +93,20 @@ if (btnGuardar) {
         const nombre = document.getElementById("input-nombre").value.trim();
         const precio = document.getElementById("input-precio").value;
         const categoria = document.getElementById("input-categoria").value.trim();
+        const marca = document.getElementById("input-marca").value.trim();
+        const presentacion =document.getElementById("input-presentacion").value.trim();
 
         if (!nombre || !precio) {
             alert("⚠️ Falta completar nombre o precio");
             return;
+        }
+
+        const datosProducto={
+            nombre, 
+            precio: Number(precio), 
+            categoria, 
+            marca,         
+            presentacion   
         }
 
         try{
@@ -105,13 +115,13 @@ if (btnGuardar) {
             if(idEditando){
                 //Modo edicion
                 btnGuardar.textContent = "Actualizando...";
-                await actualizarProducto(idEditando, { nombre, precio: Number(precio), categoria });
+                await actualizarProducto(idEditando, datosProducto);
                 alert("✨ Producto actualizado");
             }
             else{
                 //Modo creacion
                 btnGuardar.textContent = "Guardando...";
-                await guardarProducto({ nombre, precio: Number(precio), categoria });
+                await guardarProducto(datosProducto);
                 alert("✅ Producto creado");
             }
             //Cerrar modal y resetear formulario
@@ -187,12 +197,14 @@ listaDiv.addEventListener("click", (e) => {
     
     if (btnEditar) {
         // 1. Recuperamos los datos que escondimos en el botón HTML
-        const { id, nombre, precio, categoria } = btnEditar.dataset;
+        const { id, nombre, precio, categoria,marca,presentacion } = btnEditar.dataset;
 
         // 2. Llenamos el formulario con esos datos
         document.getElementById("input-nombre").value = nombre;
         document.getElementById("input-precio").value = precio;
         document.getElementById("input-categoria").value = categoria || "";
+        document.getElementById("input-marca").value = marca || "";
+        document.getElementById("input-presentacion").value = presentacion || "";
 
         // 3. Cambiamos el estado a "Modo Edición"
         idEditando = id;
@@ -221,6 +233,8 @@ function cerrarYLimpiarModal() {
     document.getElementById("input-nombre").value = "";
     document.getElementById("input-precio").value = "";
     document.getElementById("input-categoria").value = "";
+    document.getElementById("input-marca").value = "";
+    document.getElementById("input-presentacion").value = "";
     
     // Resetear estado
     idEditando = null; 
