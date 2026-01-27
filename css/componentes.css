@@ -301,6 +301,10 @@ button#btn-guardar:active {
 }
 
 .cerrar-x {
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-size:1.5rem;
     position: absolute;
     top: 15px;
     right: 20px;
@@ -358,4 +362,8 @@ button#btn-guardar:active {
 .btn-editar-card:active {
     transform: scale(0.95);    /* Se achica al hacer click */
 }
+
+
+
+
 

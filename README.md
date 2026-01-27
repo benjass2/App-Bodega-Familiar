@@ -1,9 +1,74 @@
-Aplicacion movil destinada al uso familiar.
-Uso:Se puede agregar , eliminar productos.
-En las etiquetas se veran los precios de los productos.
-Funcionalidad: Se puede buscar productos.
-Boton desplegable donde se pueden realizar dichos requerimientos.
-
-CODIGO:
 
 
+
+
+
+    <div class="Contenedor">
+
+    <header class="app-header">
+        <h1>Bodega Familiar</h1>
+    </header>
+
+    <div class="filtros-container">
+        <div class="input-wrapper">
+            <input type="text" id="buscador" placeholder=" Buscar producto...">
+        </div>
+    
+        <div class="select-wrapper">
+            <select id="filtro-orden">
+                <option value="menor-precio"> Precio: Menor a Mayor</option>
+                <option value="mayor-precio"> Precio: Mayor a Menor</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="lista-productos">
+        <p class="loading-msg">Cargando productos...</p>
+    </div>  
+
+    <div class="separador"></div>
+
+    <div class="fab-container">
+        
+        <div class="fab-opciones" id="fab-menu">
+            
+            <button id="btn-opcion-agregar" class="fab-item verde" title="Agregar Nuevo">
+                <span>➕</span>
+            </button>
+    
+            <button id="btn-opcion-borrar" class="fab-item rojo" title="Modo Borrar">
+                <span>🗑️</span>
+            </button>
+        </div>
+    
+        <button id="btn-fab-principal" class="btn-flotante-principal">
+            <span id="icono-fab">☰</span>
+        </button>
+    </div>
+
+    <div id="modal-agregar" class="modal-fondo oculto">
+        <div class="modal-contenido">
+            <span id="btn-cerrar-modal" class="cerrar-x">&times;</span>
+            
+            <h3> Nuevo Producto</h3>
+            
+            <input type="text" id="input-nombre" placeholder="Nombre (ej. Arroz Costeño)">
+            
+            <div class="input-group">
+                <span class="simbolo-moneda">S/</span>
+                <input type="number" id="input-precio" placeholder="0.00" step="0.10" class="input-con-moneda">
+            </div>
+    
+            <input type="text" id="input-categoria" placeholder="Categoría (Opcional)">
+            
+            <button id="btn-guardar">Guardar Producto</button>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p>© 2025 • Bodega Familiar</p>
+    </footer>
+
+</div>
+
+<script type="module" src="js/app.js"></script>
