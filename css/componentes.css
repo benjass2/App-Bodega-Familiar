@@ -235,9 +235,7 @@ button#btn-guardar:active {
 .fab-item.rojo { background-color: #d50000; }
 
 
-/* =========================================
-   7. MODO BORRAR (ESTO FALTABA)
-   ========================================= */
+
 /* Borde rojo y animación al activar modo borrar */
 .modo-borrar .producto-card {
     border-left: 5px solid #d50000 !important; 
@@ -316,3 +314,48 @@ button#btn-guardar:active {
 /* Utilidades */
 .loading-msg { text-align: center; color: #777; margin-top: 20px; }
 .separador { height: 20px; }
+
+
+
+
+/*Boton editar productos*/
+.btn-editar-card{
+    background-color: #ffffff; /* Gris muy clarito */
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;        /* Totalmente redondo */
+    cursor: pointer;
+    font-size: 1.1rem;         /* Tamaño del emoji */
+    
+    /* Para centrar el emoji perfectamente */
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    
+    transition: all 0.2s ease; /* Animación suave */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.accion-buttons{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.acciones-card {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+}
+
+.btn-editar-card:hover {
+    background-color: #f6f9ab; /* Un poco más oscuro al pasar el mouse */
+    transform: scale(1.1);     /* Crece un poquito (Efecto Pop) */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-editar-card:active {
+    transform: scale(0.95);    /* Se achica al hacer click */
+}
+

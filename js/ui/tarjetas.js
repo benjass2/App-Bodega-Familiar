@@ -1,14 +1,31 @@
 export function crearTarjetaHTML(p,modoBorrar){
   const precioSeguro = Number(p.precio) || 0;
 
-    // Decidimos qué botón mostrar
-    const contenidoDerecha = modoBorrar
-      ? `<button class="btn-eliminar-card" data-id="${p.id}" data-nombre="${p.nombre}">
-           ELIMINAR
-         </button>`
-      : `<span class="precio">S/ ${precioSeguro.toFixed(2)}</span>`;
+  let contenidoDerecha;
+  if(modoBorrar){
+    //Si estamos borrando , mostramos el boton eliminar en las tarjetas 
+    contenidoDerecha = `
+            <button class="btn-eliminar-card" data-id="${p.id}" data-nombre="${p.nombre}">
+                ELIMINAR
+            </button>`;
+  }
+  else{
+    //Si no , mostramos el precio y boton editar 
+    contenidoDerecha = `
+            <div class="acciones-card">
+                <span class="precio">S/ ${precioSeguro.toFixed(2)}</span>
+                <button class="btn-editar-card" 
+                        data-id="${p.id}" 
+                        data-nombre="${p.nombre}" 
+                        data-precio="${p.precio}" 
+                        data-categoria="${p.categoria}">
+                    ✏️
+                </button>
+            </div>`;
 
-    return `
+  }
+  
+  return `
       <div class="producto-card">
         <div class="info-prod">
           <span class="nombre">${p.nombre}</span>
@@ -17,4 +34,5 @@ export function crearTarjetaHTML(p,modoBorrar){
         ${contenidoDerecha}
       </div>
     `;
+
 }

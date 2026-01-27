@@ -1,11 +1,10 @@
-// ==========================================
-// 1. IMPORTACIONES (MODULARIZACIÓN)
-// ==========================================
+
 // Traemos la lógica de DB desde la carpeta services
 import { 
     escucharProductos, 
     guardarProducto, 
-    eliminarProducto 
+    eliminarProducto,
+    actualizarProducto,
 } from "./services/productos.js";
 
 // Traemos el diseño HTML desde la carpeta ui
@@ -13,15 +12,13 @@ import { crearTarjetaHTML } from "./ui/tarjetas.js";
 
 console.log("¡Sistema Modular Cargado Exitosamente!");
 
-// ==========================================
-// 2. ESTADO GLOBAL
-// ==========================================
+//Variables globales
 let productosGlobales = []; // Aquí guardaremos la copia de los datos
 let modoBorrarActivo = false; // Interruptor del modo borrar
+let idEditando = null; // Para saber si estamos editando o creando
 
-// ==========================================
-// 3. REFERENCIAS DEL DOM (Elementos HTML)
-// ==========================================
+
+//Referencia del DOM
 const listaDiv = document.getElementById("lista-productos");
 const modal = document.getElementById("modal-agregar");
 const btnGuardar = document.getElementById("btn-guardar");
@@ -37,11 +34,8 @@ const inputBuscador = document.getElementById("buscador");
 const selectOrden = document.getElementById("filtro-orden");
 
 
-// ==========================================
-// 4. LÓGICA PRINCIPAL (CONTROLADOR)
-// ==========================================
+//Logica principal de la app
 
-// A. INICIAR LA ESCUCHA (Suscripción a Firebase)
 // Esta función se ejecuta sola cada vez que hay cambios en la DB
 escucharProductos((nuevosProductos) => {
     productosGlobales = nuevosProductos; // Actualizamos nuestro array
@@ -62,17 +56,17 @@ function renderizarLista() {
         return;
     }
 
-    // 3. Generar HTML (Usando la función importada de UI)
+    // 3. Generar HTML 
     // Creamos un solo string gigante con map y join
     const htmlFinal = productosProcesados
         .map(producto => crearTarjetaHTML(producto, modoBorrarActivo))
         .join("");
 
-    // 4. Inyectar al DOM (Una sola vez para mejor rendimiento)
+    // 4. Inyectar al DOM 
     listaDiv.innerHTML = htmlFinal;
 }
 
-// C. HELPER: FILTRAR Y ORDENAR
+//Filtrar y ordenar
 function procesarDatos(lista) {
     const texto = inputBuscador?.value.toLowerCase() || "";
     const orden = selectOrden?.value || "menor-precio";
@@ -91,9 +85,7 @@ function procesarDatos(lista) {
 }
 
 
-// ==========================================
-// 5. MANEJO DE EVENTOS (INTERACCIONES)
-// ==========================================
+//Manejo de eventos
 
 // --- EVENTO: GUARDAR PRODUCTO ---
 if (btnGuardar) {
@@ -107,32 +99,37 @@ if (btnGuardar) {
             return;
         }
 
-        try {
+        try{
             btnGuardar.disabled = true;
-            btnGuardar.textContent = "Guardando...";
 
-            // Llamamos al servicio (No sabemos nada de Firebase aquí)
-            await guardarProducto({ nombre, precio, categoria });
-
-            // Limpieza
-            document.getElementById("input-nombre").value = "";
-            document.getElementById("input-precio").value = "";
-            document.getElementById("input-categoria").value = "";
-            
-            modal.classList.add("oculto");
-            alert("✅ Producto guardado");
-
-        } catch (error) {
-            console.error(error);
-            alert("❌ Error al guardar");
-        } finally {
-            btnGuardar.disabled = false;
-            btnGuardar.textContent = "Guardar Producto";
+            if(idEditando){
+                //Modo edicion
+                btnGuardar.textContent = "Actualizando...";
+                await actualizarProducto(idEditando, { nombre, precio: Number(precio), categoria });
+                alert("✨ Producto actualizado");
+            }
+            else{
+                //Modo creacion
+                btnGuardar.textContent = "Guardando...";
+                await guardarProducto({ nombre, precio: Number(precio), categoria });
+                alert("✅ Producto creado");
+            }
+            //Cerrar modal y resetear formulario
+            cerrarYLimpiarModal();
         }
+        catch(error){
+            console.error(error);
+            alert(" Error al guardar el producto");
+        }
+        finally{
+            btnGuardar.disabled = false;
+        }
+     
+   
     });
 }
 
-// --- EVENTO: ELIMINAR (Delegación) ---
+// --- EVENTO: ELIMINAR  ---
 listaDiv.addEventListener("click", async (e) => {
     // Buscamos si el clic fue en un botón eliminar (o en su ícono)
     const btn = e.target.closest(".btn-eliminar-card");
@@ -174,20 +171,38 @@ btnOpcionBorrar?.addEventListener("click", () => {
 
     if (modoBorrarActivo) {
         document.body.classList.add("modo-borrar");
-        alert("🔴 MODO BORRAR ACTIVADO");
+      
     } else {
         document.body.classList.remove("modo-borrar");
-        alert("⚪ Modo borrar desactivado");
+     
     }
 
     renderizarLista(); // Repintar para mostrar/ocultar botones rojos
     cerrarMenuFab();
 });
 
-function cerrarMenuFab() {
-    menuOpciones.classList.remove("mostrar");
-    btnFabPrincipal.classList.remove("abierto");
-}
+//Evento: Detectar clic en el lapiz
+listaDiv.addEventListener("click", (e) => {
+    const btnEditar = e.target.closest(".btn-editar-card");
+    
+    if (btnEditar) {
+        // 1. Recuperamos los datos que escondimos en el botón HTML
+        const { id, nombre, precio, categoria } = btnEditar.dataset;
+
+        // 2. Llenamos el formulario con esos datos
+        document.getElementById("input-nombre").value = nombre;
+        document.getElementById("input-precio").value = precio;
+        document.getElementById("input-categoria").value = categoria || "";
+
+        // 3. Cambiamos el estado a "Modo Edición"
+        idEditando = id;
+        document.querySelector("#modal-agregar h3").textContent = "✏️ Editar Producto"; // Cambiar título
+        btnGuardar.textContent = "Actualizar";
+        
+        // 4. Abrimos el modal
+        modal.classList.remove("oculto");
+    }
+});
 
 // --- EVENTOS: MODAL ---
 const btnCerrarModal = document.getElementById("btn-cerrar-modal");
@@ -195,3 +210,29 @@ btnCerrarModal?.addEventListener("click", () => modal.classList.add("oculto"));
 window.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.add("oculto");
 });
+
+function cerrarMenuFab() {
+    menuOpciones.classList.remove("mostrar");
+    btnFabPrincipal.classList.remove("abierto");
+}
+
+
+function cerrarYLimpiarModal() {
+    document.getElementById("input-nombre").value = "";
+    document.getElementById("input-precio").value = "";
+    document.getElementById("input-categoria").value = "";
+    
+    // Resetear estado
+    idEditando = null; 
+    btnGuardar.textContent = "Guardar Producto";
+    document.querySelector("#modal-agregar h3").textContent = "✨ Nuevo Producto"; // Volver título original
+    
+    modal.classList.add("oculto");
+}
+
+// Actualiza tu botón de cerrar modal para usar esta función
+document.getElementById("btn-cerrar-modal")?.addEventListener("click", cerrarYLimpiarModal);
+
+
+
+

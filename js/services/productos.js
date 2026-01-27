@@ -3,6 +3,7 @@
 import {
   addDoc,
   deleteDoc,
+  updateDoc,
   doc,
   onSnapshot,
   query,
@@ -15,6 +16,10 @@ import { productosRef, db } from "../firebase.js";
 //1.Guardar
 export async function guardarProducto(datos){
     // Aquí podrías agregar validaciones extra si quisieras
+    if(!datos.nombre || !datos.categoria || !datos.precio){
+        alert("Faltan datos obligatorios");
+        return;
+    }
     return await addDoc(productosRef, {
         ...datos,
         fecha: new Date()
@@ -28,7 +33,7 @@ export async function eliminarProducto(id){
 
 
 //3.Cambios
-export function escucharProductos(callback) {
+export function escucharProductos(callback) { //Le pasamos una función que se ejecutará cuando haya cambios
     const q = query(productosRef, orderBy("fecha", "desc"));
 
     return onSnapshot(q, (snapshot) => {
@@ -43,3 +48,11 @@ export function escucharProductos(callback) {
         callback(productos);
     });
 }
+
+//4.Actualizar
+export async function actualizarProducto(id, datosActualizados){
+     const referencia = doc(db,"productos",id);
+    return await updateDoc(referencia, datosActualizados);
+}
+
+
