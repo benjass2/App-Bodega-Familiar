@@ -42,6 +42,10 @@
                 <button id="btn-opcion-agregar" class="fab-item verde" aria-label="Agregar producto">
                     <span>➕</span>
                 </button>
+
+                <button id="btn-opcion-editar" class="fab-item azul" aria-label="Modo edición">
+                    <span>✏️</span>
+                </button>
         
                 <button id="btn-opcion-borrar" class="fab-item rojo" aria-label="Activar modo borrar">
                     <span>🗑️</span>
@@ -56,28 +60,52 @@
         <div id="modal-agregar" class="modal-fondo oculto" role="dialog" aria-modal="true">
             
             <div class="modal-contenido">
-                
-                <button id="btn-cerrar-modal" class="cerrar-x" aria-label="Cerrar modal">&times;</button>
-                
-                <h3>Nuevo Producto</h3>
-                
-                <input type="text" id="input-nombre" placeholder="Nombre (ej. Arroz Costeño)" aria-label="Nombre del producto">
-                
-                <div class="input-group">
-                    <span class="simbolo-moneda">S/</span>
-                    <input type="number" id="input-precio" placeholder="0.00" step="0.10" class="input-con-moneda" aria-label="Precio del producto">
-                </div>
-
-                <div class ="fila-doble">
-                    <input type="text" id="input-marca" placeholder="Marca (ej. Gloria)" aria-label="Marca">
-                    <input type="text" id="input-presentacion" placeholder="Medida (ej. 1L, 500ml)" aria-label="Presentación">
-                </div>
+    <button id="btn-cerrar-modal" class="cerrar-x" aria-label="Cerrar modal">&times;</button>
+    
+    <h3>✨ Nuevo Producto</h3>
+    
+    <div class="form-grid">
         
-                <input type="text" id="input-categoria" placeholder="Categoría (Opcional)" aria-label="Categoría del producto">
-                
-                <button id="btn-guardar">Guardar Producto</button>
+        <div class="form-item full-width">
+            <label>Nombre</label>
+            <input type="text" id="input-nombre" placeholder="Ej. Arroz Costeño">
+        </div>
 
-            </div> </div> <footer class="app-footer">
+        <div class="form-item">
+            <label>Precio</label>
+            <div class="input-group-compacto">
+                <span>S/</span>
+                <input type="number" id="input-precio" placeholder="0.00" step="0.10">
+            </div>
+        </div>
+
+        <div class="form-item">
+            <label>Stock</label>
+            <input type="number" id="input-stock" placeholder="Cant." class="input-stock">
+        </div>
+
+        <div class="form-item">
+            <label>Marca</label>
+            <input type="text" id="input-marca" placeholder="Ej. Gloria">
+        </div>
+
+        <div class="form-item">
+            <label>Medida</label>
+            <input type="text" id="input-presentacion" placeholder="Ej. 1kg">
+        </div>
+
+        <div class="form-item full-width">
+            <label>Categoría</label>
+            <input type="text" id="input-categoria" placeholder="Ej. Abarrotes">
+        </div>
+
+    </div>
+
+    <button id="btn-guardar">Guardar Producto</button>
+
+</div>
+        </div> 
+        <footer class="app-footer">
             <p>© 2025 • Bodega Familiar</p>
         </footer>
 

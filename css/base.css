@@ -27,6 +27,15 @@ h1 {
     letter-spacing: -0.5px; /* Estilo moderno */
 }
 
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    touch-action: manipulation;
+}   
+
 /* Contenedor */
 .Contenedor {
     max-width: 600px;
