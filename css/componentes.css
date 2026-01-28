@@ -23,52 +23,70 @@ select:focus {
     box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.15);
 }
 
-.input-wrapper,
-.select-wrapper {
-    width: 100%;
+/* =========================================================
+   2. BUSCADOR Y FILTROS (Diseño Horizontal)
+   ========================================================= */
+.filtros-container {
+    display: flex;
+    flex-direction: row; /* Siempre en fila */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    /* --- ESTO ES LO NUEVO PARA LA LÍNEA --- */
+   border-bottom: 1px solid #e2e8f0; /* Línea gris muy suave */
+    padding-bottom: 25px; /* Espacio entre el buscador y la línea */
+    margin-bottom: 25px;  /* Espacio entre la línea y las tarjetas */
+}
+
+/* El Buscador (Ocupa todo el espacio sobrante) */
+.input-wrapper {
+    flex: 1; 
     position: relative;
 }
 
-/* =========================================================
-   2. BUSCADOR Y FILTROS
-   ========================================================= */
+
 #buscador {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%230066ff" d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 1 0 9.5 16c1.6 0 3.1-.6 4.2-1.6l.3.3v.8l5 5L20.5 19z"/></svg>');
     background-repeat: no-repeat;
-    background-position: 15px center;
-    padding-left: 50px;
+    background-position: 12px center;
+    padding-left: 45px; /* Ajustado */
+    margin-bottom: 0 !important;
+}
+
+/* El Select (Ocupa solo lo necesario) */
+.select-wrapper {
+    width: auto;
+    flex-shrink: 0;
+    min-width: 80px;
 }
 
 select {
-    appearance: none;
-    -webkit-appearance: none;
-    cursor: pointer;
+    margin-bottom: 0 !important;
+    padding: 14px 30px 14px 12px;
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='292.4' height='292.4'%3E%3Cpath fill='%230066FF' d='M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 12px;
-    padding-right: 40px;
+    background-position: right 10px center;
+    background-size: 10px;
 }
 
 select:hover {
     background-color: #f9f9f9;
 }
 
-.filtros-container {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-    align-items: center;
-}
-
-@media (max-width: 480px) {
+/* Solo en pantallas diminutas (relojes o móviles muy viejos) permitimos stack */
+@media (max-width: 350px) {
     .filtros-container {
         flex-direction: column;
+        align-items: stretch;
+    }
+    .select-wrapper {
+        width: 100%;
     }
 }
 
 /* =========================================================
-   3. INPUT CON MONEDA (LEGACY)
+   3. INPUTS GENÉRICOS
    ========================================================= */
 .input-group {
     position: relative;
@@ -76,23 +94,8 @@ select:hover {
     margin-bottom: 15px;
 }
 
-.simbolo-moneda {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-65%);
-    font-weight: bold;
-    font-size: 16px;
-    color: #555;
-    pointer-events: none;
-}
-
-.input-con-moneda {
-    padding-left: 40px !important;
-}
-
 /* =========================================================
-   4. TARJETAS DE PRODUCTO
+   4. TARJETAS DE PRODUCTO (Estilo Clásico con Badges)
    ========================================================= */
 .producto-card {
     background: var(--color-blanco);
@@ -100,11 +103,14 @@ select:hover {
     margin-bottom: 14px;
     border-radius: 16px;
     box-shadow: var(--sombra-suave);
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
     border-left: 5px solid var(--color-primario);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s;
+    cursor: default;
 }
 
 .producto-card:active {
@@ -114,6 +120,7 @@ select:hover {
 .info-prod {
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
 .nombre {
@@ -124,7 +131,6 @@ select:hover {
 
 .categoria {
     font-size: 13px;
-    margin-top: 5px;
     text-transform: uppercase;
     font-weight: 500;
     color: #888;
@@ -135,87 +141,74 @@ select:hover {
 }
 
 .precio {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 800;
     color: var(--color-precio);
+    white-space: nowrap;
 }
 
-/* Badges Generales */
+/* --- BADGES (Etiquetas) --- */
 .detalles-extra {
     display: flex;
-    gap: 5px;
-    margin: 4px 0;
+    gap: 6px;
     flex-wrap: wrap;
+    margin-bottom: 2px;
 }
 
 .badge {
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 4px;
+    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 6px;
     background-color: #f1f5f9;
     color: #475569;
     border: 1px solid #e2e8f0;
+    display: inline-block;
 }
 
-.badge.marca { font-weight: 500; color: #0f172a; }
-.badge.medida { color: #059669; }
+.badge.marca { 
+    font-weight: 600; 
+    color: #0f172a; 
+    background-color: #e0f2fe; 
+    border-color: #bae6fd;
+}
+
+.badge.medida { 
+    color: #059669; 
+    background-color: #dcfce7; 
+    border-color: #bbf7d0;
+}
 
 /* =========================================================
-   5. BOTONES EN TARJETA
+   5. BOTONES DE ACCIÓN (Tarjeta)
    ========================================================= */
-.acciones-card,
-.accion-buttons {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.btn-editar-card {
-    background-color: #ffffff;
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.btn-editar-card:hover {
-    background-color: #f6f9ab;
-    transform: scale(1.1);
-}
-
-.btn-editar-card:active {
-    transform: scale(0.95);
-}
-
 .btn-eliminar-card {
-    background: #d50000;
-    color: white;
+    background: #fee2e2;
+    color: #ef4444;
     border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-weight: bold;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    font-size: 20px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* =========================================================
-   6. MODO BORRAR
+   6. ESTADOS (Editar / Borrar)
    ========================================================= */
+/* Modo Borrar */
 .modo-borrar .producto-card {
-    border-left-color: #d50000 !important;
-    background-color: #fff5f5;
-    animation: temblor 0.3s infinite alternate;
+    border-left-color: #ef4444 !important;
+    background-color: #fffafa;
 }
 
-@keyframes temblor {
-    from { transform: rotate(0.5deg); }
-    to   { transform: rotate(-0.5deg); }
+/* Modo Editar */
+.modo-editar .producto-card {
+    cursor: pointer;
+    border-left-color: #3b82f6 !important;
+    background-color: #eff6ff;
 }
 
 /* =========================================================
@@ -262,7 +255,6 @@ select:hover {
     justify-content: center;
     align-items: center;
     transition :transform 0.35s ease ,background-color 0.35s ease;
-    transform-origin:center;
 }
 
 .btn-flotante-principal.abierto{
@@ -310,19 +302,12 @@ select:hover {
     transition: transform 0.2s ease;
 }
 
-.fab-item:hover {
-    transform: scale(1.1);
-}
+.fab-item:hover { transform: scale(1.1); }
 
 .fab-item.verde { background-color: #10b981; }
 .fab-item.rojo { background-color: #ef4444; }
-.fab-item.azul {   background-color: #3b82f6; }
-
-.modo-editar .producto-card {
-    cursor: pointer;
-    border-left-color: #3b82f6 !important; /* Borde azul */
-    background-color: #eff6ff; /* Fondo azulito muy suave */
-}
+.fab-item.azul { background-color: #3b82f6; } /* Color para editar */
+.fab-item.amarillo { background-color: #f59e0b; }
 
 /* =========================================================
    9. MODAL
@@ -364,18 +349,19 @@ select:hover {
 }
 
 /* =========================================================
-   10. FORMULARIO EN GRILLA (GRID SYSTEM)
+   10. FORMULARIO EN GRILLA (Correcto y sin bugs)
    ========================================================= */
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-    gap: 15px; /* Espacio entre cuadritos */
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     margin-bottom: 20px;
 }
 
 .form-item {
     display: flex;
     flex-direction: column;
+    margin: 0; 
 }
 
 .form-item label {
@@ -387,72 +373,40 @@ select:hover {
 }
 
 .full-width {
-    grid-column: span 2; /* Ocupa las 2 columnas */
+    grid-column: span 2;
 }
 
-/* Input Compacto (Precio) con "S/" alineado perfectamente */
+/* El S/ alineado perfectamente */
 .input-group-compacto {
     position: relative;
-    display: flex;
-    align-items: center;
     width: 100%;
-    height:auto;
+    height: auto;
 }
 
 .input-group-compacto span {
-   position: absolute;
+    position: absolute;
     top: 50%;
     left: 12px;
-    transform: translateY(-50%); /* Centrado vertical exacto */
+    transform: translateY(-50%);
     color: #555;
     font-weight: bold;
     font-size: 15px;
     pointer-events: none;
     z-index: 10;
-    line-height: 1; /* Evita que el texto tenga altura extra */
+    line-height: 1;
 }
 
 .input-group-compacto input {
     width: 100%;
-    padding-left: 35px !important; /* Espacio para el S/ */
-    margin: 0 !important; /* IMPORTANTE: Elimina el margen que lo empujaba abajo */
-    height: 48px; /* Altura fija para que coincida con los otros */
+    padding-left: 35px !important;
+    margin: 0 !important;
+    height: 48px; 
 }
 
 .form-grid input {
     margin-bottom: 0 !important;
 }
 
-/* =========================================================
-   11. SEMÁFORO DE STOCK (COLORES) 
-   ========================================================= */
-.badge.stock-bien {
-    background-color: #dcfce7; /* Verde claro */
-    color: #166534;            /* Verde oscuro */
-    border-color: #bbf7d0;
-}
-
-.badge.stock-bajo {
-    background-color: #fef9c3; /* Amarillo */
-    color: #854d0e;            /* Marrón */
-    border-color: #fde047;
-}
-
-.badge.stock-critico {
-    background-color: #fee2e2; /* Rojo claro */
-    color: #991b1b;            /* Rojo fuerte */
-    border-color: #fecaca;
-    font-weight: bold;
-    animation: palpitar 2s infinite;
-}
-
-@keyframes palpitar {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { opacity: 1; }
-}
-
-/* === RESPONSIVE PARA GRILLA === */
 @media (max-width: 380px) {
     .form-grid {
         grid-template-columns: 1fr;

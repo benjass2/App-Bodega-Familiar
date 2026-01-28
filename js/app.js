@@ -103,7 +103,7 @@ if (btnGuardar) {
         const categoria = document.getElementById("input-categoria").value.trim();
         const marca = document.getElementById("input-marca").value.trim();
         const presentacion = document.getElementById("input-presentacion").value.trim();
-        const stock = document.getElementById("input-stock").value;
+    
 
         // 2. Validar básicos
         if (!nombre || !precio) {
@@ -118,7 +118,7 @@ if (btnGuardar) {
             categoria, 
             marca,         
             presentacion,
-            stock: Number(stock) || 0
+           
         };
 
         try {
@@ -178,7 +178,6 @@ listaDiv.addEventListener("click", async (e) => {
             // Llenamos el formulario
             document.getElementById("input-nombre").value = nombre;
             document.getElementById("input-precio").value = precio;
-            document.getElementById("input-stock").value = stock;
             document.getElementById("input-categoria").value = categoria || "";
             document.getElementById("input-marca").value = marca || "";
             document.getElementById("input-presentacion").value = presentacion || "";
@@ -280,7 +279,6 @@ function cerrarYLimpiarModal() {
     document.getElementById("input-categoria").value = "";
     document.getElementById("input-marca").value = "";
     document.getElementById("input-presentacion").value = "";
-    document.getElementById("input-stock").value = "";
     
     // Resetear variables de estado
     idEditando = null; 

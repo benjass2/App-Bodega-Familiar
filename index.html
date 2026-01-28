@@ -25,8 +25,8 @@
             
                 <div class="select-wrapper">
                     <select id="filtro-orden" aria-label="Ordenar productos">
-                        <option value="menor-precio">Precio: Menor a Mayor</option>
-                        <option value="mayor-precio">Precio: Mayor a Menor</option>
+                        <option value="menor-precio">Precio ⬆</option>
+                        <option value="mayor-precio">Precio ⬇</option>
                     </select>
                 </div>
             </section>
@@ -43,7 +43,7 @@
                     <span>➕</span>
                 </button>
 
-                <button id="btn-opcion-editar" class="fab-item azul" aria-label="Modo edición">
+                <button id="btn-opcion-editar" class="fab-item amarillo" aria-label="Modo edición">
                     <span>✏️</span>
                 </button>
         
@@ -80,11 +80,6 @@
         </div>
 
         <div class="form-item">
-            <label>Stock</label>
-            <input type="number" id="input-stock" placeholder="Cant." class="input-stock">
-        </div>
-
-        <div class="form-item">
             <label>Marca</label>
             <input type="text" id="input-marca" placeholder="Ej. Gloria">
         </div>
@@ -104,12 +99,14 @@
     <button id="btn-guardar">Guardar Producto</button>
 
 </div>
-        </div> 
+    
+    </div> 
         <footer class="app-footer">
             <p>© 2025 • Bodega Familiar</p>
         </footer>
-
-    </div> <script type="module" src="js/app.js"></script>
+    </div> 
+    
+    <script type="module" src="js/app.js"></script>
 
 </body>
 </html>
