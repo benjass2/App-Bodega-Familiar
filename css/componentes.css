@@ -180,8 +180,8 @@ select:hover {
    5. BOTONES DE ACCIÓN (Tarjeta)
    ========================================================= */
 .btn-eliminar-card {
-    background: #fee2e2;
-    color: #ef4444;
+    background: #ff0202;
+    color: #ffffff;
     border: none;
     width: 45px;
     height: 45px;
@@ -191,6 +191,22 @@ select:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Una sombrita para darle profundidad */
+    box-shadow: 0 4px 6px rgba(255, 2, 2, 0.3);
+}
+
+.btn-eliminar-card:hover {
+    background: #cc0000; /* Se pone rojo sangre (más oscuro) */
+    transform: scale(1.1) rotate(5deg); /* Crece un 10% y se inclina un poquito */
+    box-shadow: 0 6px 12px rgba(204, 0, 0, 0.4); /* La sombra crece */
+}
+
+.btn-eliminar-card:active {
+    background: #990000; /* Rojo muy oscuro */
+    transform: scale(0.9); /* Se achica al 90% (Efecto de botón presionado) */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* La sombra se achica */
 }
 
 /* =========================================================
@@ -200,6 +216,7 @@ select:hover {
 .modo-borrar .producto-card {
     border-left-color: #ef4444 !important;
     background-color: #fffafa;
+ 
 }
 
 /* Modo Editar */
@@ -239,7 +256,11 @@ select:hover {
     gap: 15px;
     z-index: 1000;
     opacity:1;
-    
+    pointer-events: none;
+}
+.btn-flotante-principal,
+.fab-item {
+    pointer-events: auto; /* <--- Reactivamos el clic solo en los círculos */
 }
 
 .btn-flotante-principal {

@@ -50,4 +50,8 @@ button {
     margin-bottom: 20px;
 }
 
+/* Espacio extra al final para que el menú no tape el último producto */
+#lista-productos {
+    padding-bottom: 120px; /* Un buen colchón de espacio */
+}
 .oculto { display: none !important; }
