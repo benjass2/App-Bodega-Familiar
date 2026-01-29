@@ -294,3 +294,86 @@ document.getElementById("btn-cerrar-modal")?.addEventListener("click", cerrarYLi
 window.addEventListener("click", (e) => {
     if (e.target === modal) cerrarYLimpiarModal();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==========================================
+// 🚀 ZONA DE CARGA MASIVA (SCRIPT TEMPORAL)
+// ==========================================
+
+// 1. Aquí pega tu lista de productos (Formato JSON)
+const productosParaInyectar = [
+    { "nombre": "Inca Kola", "precio": 3.50, "marca": "Inca Kola", "presentacion": "500ml", "categoria": "Bebidas" },
+    { "nombre": "Coca Cola", "precio": 3.80, "marca": "Coca Cola", "presentacion": "500ml", "categoria": "Bebidas" },
+    { "nombre": "Arroz Costeño", "precio": 4.50, "marca": "Costeño", "presentacion": "1kg", "categoria": "Abarrotes" },
+    { "nombre": "Azúcar Rubia", "precio": 3.20, "marca": "Dulfina", "presentacion": "1kg", "categoria": "Abarrotes" },
+    { "nombre": "Leche Gloria", "precio": 4.20, "marca": "Gloria", "presentacion": "Lata 400g", "categoria": "Lácteos" },
+    { "nombre": "Yogurt Fresa", "precio": 6.50, "marca": "Laive", "presentacion": "1 Litro", "categoria": "Lácteos" },
+    { "nombre": "Galleta Soda", "precio": 0.80, "marca": "San Jorge", "presentacion": "Paquete", "categoria": "Snacks" },
+    { "nombre": "Piqueo Snax", "precio": 1.50, "marca": "Frito Lay", "presentacion": "Bolsa chica", "categoria": "Snacks" },
+    { "nombre": "Detergente", "precio": 3.50, "marca": "Bolívar", "presentacion": "Bolsa 350g", "categoria": "Limpieza" },
+    { "nombre": "Jabón de Tocador", "precio": 2.50, "marca": "Neko", "presentacion": "Unidad", "categoria": "Aseo" }
+];
+
+// 2. La función que hace la magia
+async function inyectarBD() {
+    console.clear();
+    console.log("⚠️ ATENCIÓN: Iniciando protocolo de carga masiva...");
+    
+    // Pregunta de seguridad
+    if (!confirm(`¿Estás seguro de subir ${productosParaInyectar.length} productos de golpe?`)) {
+        console.log("❌ Carga cancelada por el usuario.");
+        return;
+    }
+
+    console.log("🚀 Despegando...");
+
+    let contador = 0;
+    
+    // Recorremos el array uno por uno
+    for (const prod of productosParaInyectar) {
+        try {
+            // Usamos tu función 'guardarProducto' que ya existe en app.js
+            // Nota: guardarProducto espera un objeto.
+            await guardarProducto(prod);
+            
+            contador++;
+            console.log(`✅ [${contador}/${productosParaInyectar.length}] Subido: ${prod.nombre}`);
+            
+        } catch (error) {
+            console.error(`❌ Error subiendo ${prod.nombre}:`, error);
+        }
+    }
+
+    alert(`✨ ¡Misión Cumplida! Se subieron ${contador} productos.`);
+    location.reload(); // Recargamos la página para verlos en la lista
+}
+
+// 3. EXPONEMOS LA FUNCIÓN A LA CONSOLA
+// Esto es necesario para poder llamarla desde el navegador
+window.inyectarBD = inyectarBD;
