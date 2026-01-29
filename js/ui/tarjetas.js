@@ -10,8 +10,7 @@ export function crearTarjetaHTML(p, modoBorrar) {
       ? `<button class="btn-eliminar-card" data-id="${p.id}" data-nombre="${p.nombre}">🗑️</button>`
       : `<span class="precio">S/ ${precioSeguro.toFixed(2)}</span>`;
 
-    // Retornamos la tarjeta clásica
-    // Guardamos los datos en el div principal para el "Modo Edición"
+    // Guardamos los datos en el div principal para el "Modo Edición" 
     return `
       <div class="producto-card" 
            data-id="${p.id}" 

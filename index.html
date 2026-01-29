@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
+    <link rel="icon" type="image/png" href="Fotos/tienda.webp" />
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/componentes.css">
     
@@ -86,15 +86,65 @@
 
         <div class="form-item">
             <label>Medida</label>
-            <input type="text" id="input-presentacion" placeholder="Ej. 1kg">
+            <input type="text" id="input-presentacion" list="lista-medidas" placeholder="Ej. 1kg">
+    
+            <datalist id="lista-medidas">
+                <option value="500ml">
+                <option value="600ml">
+                <option value="1 Litro">
+                <option value="1.5 Litros">
+                <option value="2 Litros">
+                <option value="3 Litros">
+    
+                <option value="Retornable"> (Para vidrio que se devuelve)
+                <option value="Descartable"> (Para plástico)
+                <option value="Lata"> (Atún, Cerveza, Leche)
+                <option value="Botella"> (Si no quieres especificar ml)
+
+                <option value="1kg"> (Arroz, Azúcar)
+                <option value="500g"> (Fideos, Mantequilla)
+                <option value="250g">
+                <option value="100g"> (Queso, Jamonada)
+
+                <option value="Unidad"> (Para casi todo lo suelto: Huevo, Panadol, Prestobarba)
+                <option value="Paquete"> (Galletas, Fideos, Pañales)
+                <option value="Sobre"> (Shampoo, Mayonesa, Refrescos en polvo)
+                <option value="Bolsa"> (Detergente, Avena)
+                <option value="Caja"> (Solo si vendes la caja cerrada, ej: Panetón, Té filtrante)
+            </datalist>
         </div>
 
         <div class="form-item full-width">
             <label>Categoría</label>
-            <input type="text" id="input-categoria" placeholder="Ej. Abarrotes">
+            <select id="input-categoria">
+                <option value="Varios">Selecciona una categoría...</option>
+        
+                 <option value="Abarrotes">Abarrotes (Arroz, Azúcar, Fideos, Aceite)</option>
+                 <option value="Bebidas">Bebidas (Gaseosas, Aguas, Jugos)</option>
+                 <option value="Licores">Licores y Cervezas</option>
+        
+                 <option value="Lácteos">Lácteos (Leche, Yogurt, Mantequilla)</option>
+                 <option value="Embutidos">Embutidos y Carnes</option>
+                 <option value="Verduras">Verduras, Frutas y Huevos</option>
+                 <option value="Helados">Helados y Hielo</option>
+
+                 <option value="Snacks">Snacks (Papas Lay's, Chizitos)</option>
+                 <option value="Golosinas">Golosinas (Chocman, Caramelos, Galletas dulces)</option>
+                 <option value="Panadería">Panadería y Desayuno</option>
+
+                 <option value="Limpieza">Limpieza del Hogar (Detergente, Lejía)</option>
+                 <option value="Aseo">Aseo Personal (Jabón, Shampoo, Pañales)</option>
+                 <option value="Farmacia">Botiquín (Pastillas, Curitas, Alcohol)</option>
+                 <option value="Librería">Librería y Útiles (Lapiceros, Cuadernos)</option>
+                 <option value="Mascotas">Mascotas (Comida perro/gato)</option>
+        
+                <option value="Otros">Otros (Cigarros, Fósforos, Pilas)</option>
+            </select>
         </div>
 
     </div>
+
+  
 
     <button id="btn-guardar">Guardar Producto</button>
 

@@ -14,6 +14,7 @@ select {
     margin: 0 0 15px 0;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
+    padding-right: 40px;
 }
 
 input:focus,
@@ -441,4 +442,33 @@ select:hover {
     .full-width {
         grid-column: span 1;
     }
+}
+
+
+
+.form-item-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff1f2; /* Fondo rojizo suave */
+    border-radius: 8px;
+    border: 1px solid #fecdd3;
+    cursor: pointer;
+}
+
+.form-item-checkbox label {
+    font-size: 15px;
+    color: #be123c;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0; /* Quitamos margen extra */
+}
+
+/* Estilo visual para la Tarjeta Agotada */
+.producto-card.agotado {
+    opacity: 0.6; /* Se ve medio transparente */
+    background-color: #f3f4f6; /* Fondo gris */
+    border-left-color: #9ca3af !important; /* Borde gris */
 }

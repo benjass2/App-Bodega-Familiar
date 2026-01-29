@@ -1,5 +1,3 @@
-//Archivo autorizado para hablar con la base de datos
-//Importaciones
 import {
   addDoc,
   deleteDoc,
@@ -15,7 +13,7 @@ import { productosRef, db } from "../firebase.js";
 
 //1.Guardar
 export async function guardarProducto(datos){
-    // Aquí podrías agregar validaciones extra si quisieras
+
     if(!datos.nombre || !datos.categoria || !datos.precio){
         alert("Faltan datos obligatorios");
         return;
@@ -33,7 +31,7 @@ export async function eliminarProducto(id){
 
 
 //3.Cambios
-export function escucharProductos(callback) { //Le pasamos una función que se ejecutará cuando haya cambios
+export function escucharProductos(callback) {
     const q = query(productosRef, orderBy("fecha", "desc"));
 
     return onSnapshot(q, (snapshot) => {
@@ -44,7 +42,7 @@ export function escucharProductos(callback) { //Le pasamos una función que se e
                 ...doc.data()
             });
         });
-        // Le pasamos los datos limpios a quien lo pidió
+
         callback(productos);
     });
 }

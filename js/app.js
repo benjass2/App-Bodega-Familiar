@@ -1,5 +1,5 @@
 // ==========================================
-// 1. IMPORTACIONES (MODULARIZACIÓN)
+// 1. IMPORTACIONES 
 // ==========================================
 import { 
     escucharProductos, 
