@@ -46,6 +46,7 @@ const selectOrden = document.getElementById("filtro-orden");
 // A. ESCUCHAR CAMBIOS (Firebase -> App)
 escucharProductos((nuevosProductos) => {
     productosGlobales = nuevosProductos; 
+    window.productosGlobales = nuevosProductos;
     renderizarLista(); 
 });
 
@@ -133,7 +134,7 @@ if (btnGuardar) {
                 // MODO CREACIÓN
                 btnGuardar.textContent = "Guardando...";
                 await guardarProducto(datosProducto);
-                alert("✅ Producto creado");
+                alert(" Producto creado");
             }
             
             cerrarYLimpiarModal();
@@ -147,12 +148,17 @@ if (btnGuardar) {
     });
 }
 
-// --- B. CLICKS EN LA LISTA (Borrar o Editar) ---
+// --- B. CLICKS EN LA LISTA (Borrar o Editar o  carrito) ---
 listaDiv.addEventListener("click", async (e) => {
     
-    // CASO 1: MODO BORRAR (Click en botón rojo 'ELIMINAR')
+    // 1. Identificar qué se tocó
+    // MOVEMOS ESTO ARRIBA para que todos los casos puedan usar la variable "tarjeta"
+    const tarjeta = e.target.closest(".producto-card");
     const btnEliminar = e.target.closest(".btn-eliminar-card");
-    
+
+    // ==========================================
+    // CASO 1: MODO BORRAR (Botón Rojo)
+    // ==========================================
     if (btnEliminar) {
         const { id, nombre } = btnEliminar.dataset;
         if (confirm(`¿Estás seguro de eliminar: ${nombre}?`)) {
@@ -163,36 +169,58 @@ listaDiv.addEventListener("click", async (e) => {
                 alert("Error al intentar borrar.");
             }
         }
-        return; // Terminamos aquí si borró
+        return; // ¡IMPORTANTE! Terminamos aquí
     }
 
-    // CASO 2: MODO EDICIÓN (Click en la tarjeta entera)
-    // Solo funciona si el modo editar está activo
+    // Si clicaste fuera de una tarjeta, no hacemos nada
+    if (!tarjeta) return;
+
+    // ==========================================
+    // CASO 2: MODO EDICIÓN
+    // ==========================================
     if (modoEditarActivo) {
-        const tarjeta = e.target.closest(".producto-card");
+        const { id, nombre, precio, categoria, marca, presentacion } = tarjeta.dataset;
+
+        // Llenar el formulario
+        document.getElementById("input-nombre").value = nombre;
+        document.getElementById("input-precio").value = precio;
+        document.getElementById("input-categoria").value = categoria || "";
+        document.getElementById("input-marca").value = marca || "";
+        document.getElementById("input-presentacion").value = presentacion || "";
+
+        // Preparamos el modal
+        idEditando = id;
+        document.querySelector("#modal-agregar h3").textContent = "✏️ Editar Producto";
+        btnGuardar.textContent = "Actualizar";
         
-        if (tarjeta) {
-            // Recuperamos datos DIRECTAMENTE de la tarjeta
-            const { id, nombre, precio, categoria, marca, presentacion, stock } = tarjeta.dataset;
+        // Abrimos modal
+        modal.classList.remove("oculto");
+        
+        return; // ¡IMPORTANTE! Terminamos aquí para no agregar al carrito
+    }
 
-            // Llenamos el formulario
-            document.getElementById("input-nombre").value = nombre;
-            document.getElementById("input-precio").value = precio;
-            document.getElementById("input-categoria").value = categoria || "";
-            document.getElementById("input-marca").value = marca || "";
-            document.getElementById("input-presentacion").value = presentacion || "";
+    // ==========================================
+    // CASO 3: PROTECCIÓN MODO BORRAR
+    // ==========================================
+    if (modoBorrarActivo) {
+        return; // Si el modo borrar está activo pero no le diste al botón rojo, no hagas nada
+    }
 
-            // Preparamos el modal
-            idEditando = id;
-            document.querySelector("#modal-agregar h3").textContent = "✏️ Editar Producto";
-            btnGuardar.textContent = "Actualizar";
-            
-            // Abrimos
-            modal.classList.remove("oculto");
-            
-            // (Opcional) Desactivar modo edición al abrir
-            // desactivarModoEdicion(); 
-        }
+    // ==========================================
+    // CASO 4: MODO CARRITO (Venta) 🛒
+    // ==========================================
+    const idProducto = tarjeta.dataset.id; 
+
+    // Llamamos a la función global de carrito.js
+    if (window.agregarAlCarrito) {
+        window.agregarAlCarrito(idProducto);
+        
+        // Efecto visual: Parpadeo verde
+        tarjeta.style.transition = "background-color 0.2s";
+        tarjeta.style.backgroundColor = "#dcfce7"; // Verde claro
+        setTimeout(() => tarjeta.style.backgroundColor = "", 200); 
+    } else {
+        console.error("Error: carrito.js no está cargado o no exportó la función.");
     }
 });
 
@@ -287,9 +315,14 @@ function cerrarYLimpiarModal() {
     modal.classList.add("oculto");
 }
 
+
 // Eventos de cierre del modal
 document.getElementById("btn-cerrar-modal")?.addEventListener("click", cerrarYLimpiarModal);
 window.addEventListener("click", (e) => {
     if (e.target === modal) cerrarYLimpiarModal();
 });
+
+
+
+
 

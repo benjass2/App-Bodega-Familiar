@@ -20,7 +20,7 @@
         <main>
             <section class="filtros-container">
                 <div class="input-wrapper">
-                    <input type="text" id="buscador" placeholder="Buscar producto..." aria-label="Buscar producto">
+                    <input type="text" id="buscador" placeholder="Buscar " aria-label="Buscar producto">
                 </div>
             
                 <div class="select-wrapper">
@@ -156,6 +156,34 @@
         </footer>
     </div> 
     
+   
+
+
+
+  
+    <div id="boton-carrito" onclick="toggleCarrito()">
+        🛒 <span id="contador-carrito">0</span>
+    </div>
+
+    <div id="panel-carrito" class="panel-carrito oculto">
+        <div class="carrito-header">
+            <h3>Lista de Venta</h3>
+            <button onclick="toggleCarrito()">✖</button>
+        </div>
+        
+        <div id="lista-items-carrito">
+            <p class="carrito-vacio">El carrito está vacío</p>
+        </div>
+
+        <div class="carrito-total">
+            <span>Total a Cobrar:</span>
+            <span id="total-precio">S/ 0.00</span>
+        </div>
+        
+        <button class="btn-cobrar" onclick="limpiarCarrito()">✅ Cobrar / Limpiar</button>
+    </div>
+
+    <script type="module" src="js/carrito.js"></script>
     <script type="module" src="js/app.js"></script>
 
 </body>

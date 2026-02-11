@@ -376,6 +376,119 @@ select:hover {
     cursor: pointer;
 }
 
+
+/* =========================================================
+   extra. Carrito de compras
+   ========================================================= */
+
+
+#boton-carrito {
+    position: fixed;
+    bottom: 20px;
+    left :20px;
+    background-color: #25D366; /* Verde tipo venta */
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0.65;
+
+}
+
+#contador-carrito {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Panel deslizante */
+#panel-carrito {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 60vh; /* Ocupa 60% de la pantalla */
+    background: white;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+    transition: transform 0.3s ease;
+}
+
+#panel-carrito.abierto {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.carrito-header {
+    padding: 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px 20px 0 0;
+}
+
+#lista-items-carrito {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.carrito-total {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    border-top: 1px solid #eee;
+}
+
+.btn-cobrar {
+    width: 90%;
+    margin: 0 auto 20px auto;
+    padding: 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.carrito-vacio {
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+}
+
+
+
+
+
+
 /* =========================================================
    10. FORMULARIO EN GRILLA (Correcto y sin bugs)
    ========================================================= */
