@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" type="image/png" href="Fotos/tienda.webp" />
+
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/componentes.css">
-    
-    <title>Bodega Familiar</title>
+
+    <link rel="stylesheet" href="css/forms.css">
+
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/buttons.css">
+
+    <link rel="stylesheet" href="css/fab.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/carrito.css">
+
+    <title>Mi Tiendita</title>
 </head>
+
 <body>
 
     <div class="Contenedor">
 
         <header class="app-header">
-            <h1>Bodega Familiar</h1>
+            <h1>Mi Tiendita</h1>
         </header>
 
         <main>
@@ -22,7 +33,7 @@
                 <div class="input-wrapper">
                     <input type="text" id="buscador" placeholder="Buscar " aria-label="Buscar producto">
                 </div>
-            
+
                 <div class="select-wrapper">
                     <select id="filtro-orden" aria-label="Ordenar productos">
                         <option value="menor-precio">Precio ⬆</option>
@@ -33,11 +44,11 @@
 
             <section id="lista-productos" aria-live="polite">
                 <p class="loading-msg">Cargando productos...</p>
-            </section>     
+            </section>
         </main>
 
         <div class="fab-container">
-            
+
             <div class="fab-opciones" id="fab-menu">
                 <button id="btn-opcion-agregar" class="fab-item verde" aria-label="Agregar producto">
                     <span>➕</span>
@@ -46,131 +57,82 @@
                 <button id="btn-opcion-editar" class="fab-item amarillo" aria-label="Modo edición">
                     <span>✏️</span>
                 </button>
-        
+
                 <button id="btn-opcion-borrar" class="fab-item rojo" aria-label="Activar modo borrar">
                     <span>🗑️</span>
                 </button>
             </div>
-        
+
             <button id="btn-fab-principal" class="btn-flotante-principal" aria-label="Abrir menú">
                 <span id="icono-fab">☰</span>
             </button>
         </div>
 
         <div id="modal-agregar" class="modal-fondo oculto" role="dialog" aria-modal="true">
-            
+
             <div class="modal-contenido">
-    <button id="btn-cerrar-modal" class="cerrar-x" aria-label="Cerrar modal">&times;</button>
-    
-    <h3>✨ Nuevo Producto</h3>
-    
-    <div class="form-grid">
-        
-        <div class="form-item full-width">
-            <label>Nombre</label>
-            <input type="text" id="input-nombre" placeholder="Ej. Arroz Costeño">
-        </div>
+                <button id="btn-cerrar-modal" class="cerrar-x" aria-label="Cerrar modal">&times;</button>
 
-        <div class="form-item">
-            <label>Precio</label>
-            <div class="input-group-compacto">
-                <span>S/</span>
-                <input type="number" id="input-precio" placeholder="0.00" step="0.10">
+                <h3>✨ Nuevo Producto</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-item full-width">
+                        <label>Nombre</label>
+                        <input type="text" id="input-nombre" placeholder="Ej. Arroz Costeño">
+                    </div>
+
+                    <div class="form-item">
+                        <label>Precio</label>
+                        <div class="input-group-compacto">
+                            <span>S/</span>
+                            <input type="number" id="input-precio" placeholder="0.00" step="0.10">
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label>Marca</label>
+                        <input type="text" id="input-marca" placeholder="Ej. Gloria">
+                    </div>
+
+                    <div class="form-item">
+                        <label>Medida</label>
+                        <input type="text" id="input-presentacion" list="lista-medidas" placeholder="Ej. 1kg">
+
+                        <datalist id="lista-medidas"></datalist>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <label>Categoría</label>
+                        <select id="input-categoria" aria-label="Seleccionar categoria">
+                        </select>
+                    </div>
+
+                </div>
+
+
+
+                <button id="btn-guardar">Guardar Producto</button>
+
             </div>
+
         </div>
-
-        <div class="form-item">
-            <label>Marca</label>
-            <input type="text" id="input-marca" placeholder="Ej. Gloria">
-        </div>
-
-        <div class="form-item">
-            <label>Medida</label>
-            <input type="text" id="input-presentacion" list="lista-medidas" placeholder="Ej. 1kg">
-    
-            <datalist id="lista-medidas">
-                <option value="500ml">
-                <option value="600ml">
-                <option value="1 Litro">
-                <option value="1.5 Litros">
-                <option value="2 Litros">
-                <option value="3 Litros">
-    
-                <option value="Retornable"> (Para vidrio que se devuelve)
-                <option value="Descartable"> (Para plástico)
-                <option value="Lata"> (Atún, Cerveza, Leche)
-                <option value="Botella"> (Si no quieres especificar ml)
-
-                <option value="1kg"> (Arroz, Azúcar)
-                <option value="500g"> (Fideos, Mantequilla)
-                <option value="250g">
-                <option value="100g"> (Queso, Jamonada)
-
-                <option value="Unidad"> (Para casi todo lo suelto: Huevo, Panadol, Prestobarba)
-                <option value="Paquete"> (Galletas, Fideos, Pañales)
-                <option value="Sobre"> (Shampoo, Mayonesa, Refrescos en polvo)
-                <option value="Bolsa"> (Detergente, Avena)
-                <option value="Caja"> (Solo si vendes la caja cerrada, ej: Panetón, Té filtrante)
-            </datalist>
-        </div>
-
-        <div class="form-item full-width">
-            <label>Categoría</label>
-            <select id="input-categoria">
-                <option value="Varios">Selecciona una categoría...</option>
-        
-                 <option value="Abarrotes">Abarrotes (Arroz, Azúcar, Fideos, Aceite)</option>
-                 <option value="Bebidas">Bebidas (Gaseosas, Aguas, Jugos)</option>
-                 <option value="Licores">Licores y Cervezas</option>
-        
-                 <option value="Lácteos">Lácteos (Leche, Yogurt, Mantequilla)</option>
-                 <option value="Embutidos">Embutidos y Carnes</option>
-                 <option value="Verduras">Verduras, Frutas y Huevos</option>
-                 <option value="Helados">Helados y Hielo</option>
-
-                 <option value="Snacks">Snacks (Papas Lay's, Chizitos)</option>
-                 <option value="Golosinas">Golosinas (Chocman, Caramelos, Galletas dulces)</option>
-                 <option value="Panadería">Panadería y Desayuno</option>
-
-                 <option value="Limpieza">Limpieza del Hogar (Detergente, Lejía)</option>
-                 <option value="Aseo">Aseo Personal (Jabón, Shampoo, Pañales)</option>
-                 <option value="Farmacia">Botiquín (Pastillas, Curitas, Alcohol)</option>
-                 <option value="Librería">Librería y Útiles (Lapiceros, Cuadernos)</option>
-                 <option value="Mascotas">Mascotas (Comida perro/gato)</option>
-        
-                <option value="Otros">Otros (Cigarros, Fósforos, Pilas)</option>
-            </select>
-        </div>
-
-    </div>
-
-  
-
-    <button id="btn-guardar">Guardar Producto</button>
-
-</div>
-    
-    </div> 
         <footer class="app-footer">
             <p>© 2025 • Bodega Familiar</p>
         </footer>
-    </div> 
-    
-   
+    </div>
 
 
-
-  
-    <div id="boton-carrito" onclick="toggleCarrito()">
+    <div id="boton-carrito">
         🛒 <span id="contador-carrito">0</span>
     </div>
 
     <div id="panel-carrito" class="panel-carrito oculto">
         <div class="carrito-header">
             <h3>Lista de Venta</h3>
-            <button onclick="toggleCarrito()">✖</button>
+            <button>✖</button>
         </div>
-        
+
         <div id="lista-items-carrito">
             <p class="carrito-vacio">El carrito está vacío</p>
         </div>
@@ -179,12 +141,12 @@
             <span>Total a Cobrar:</span>
             <span id="total-precio">S/ 0.00</span>
         </div>
-        
-        <button class="btn-cobrar" onclick="limpiarCarrito()">✅ Cobrar / Limpiar</button>
+
+        <button class="btn-cobrar">✅ Cobrar / Limpiar</button>
     </div>
 
-    <script type="module" src="js/carrito.js"></script>
     <script type="module" src="js/app.js"></script>
 
 </body>
+
 </html>

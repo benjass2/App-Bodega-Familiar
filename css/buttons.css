@@ -1,0 +1,57 @@
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.btn-eliminar-card {
+    background: #ff0202;
+    color: #ffffff;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px rgba(255, 2, 2, 0.3);
+}
+
+.btn-eliminar-card:hover {
+    background: #cc0000;
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 12px rgba(204, 0, 0, 0.4);
+}
+
+.btn-eliminar-card:active {
+    background: #990000;
+    transform: scale(0.9);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#btn-guardar {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(135deg, var(--color-primario), var(--color-primario-dark));
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-cobrar {
+    width: 90%;
+    margin: 0 auto 20px auto;
+    padding: 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
