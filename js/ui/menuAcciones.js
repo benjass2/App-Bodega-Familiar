@@ -1,4 +1,4 @@
-//Responsabilidad: Manejar la lógica del formulario (abrir, cerrar, validar, guardar)
+// lógica del formulario (abrir, cerrar, validar, guardar)
 
 import {
     setModoBorrar,

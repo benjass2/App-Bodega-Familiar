@@ -1,4 +1,4 @@
-//Responsabilidad : recibir la lista cruda y devolverla filtrada y ordenada
+// Recibe la lista cruda y devolverla filtrada y ordenada
 import { getProductos } from "../estado.js";
 
 const inputBuscador = document.getElementById("buscador");

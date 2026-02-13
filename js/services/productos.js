@@ -1,38 +1,38 @@
 import {
-  addDoc,
-  deleteDoc,
-  updateDoc,
-  doc,
-  onSnapshot,
-  query,
-  orderBy
+    addDoc,
+    deleteDoc,
+    updateDoc,
+    doc,
+    onSnapshot,
+    query,
+    orderBy
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 
 import { productosRef, db } from "../firebase.js";
 
 //1.Guardar
-export async function guardarProducto(datos){
+export async function guardarProducto(datos) {
 
-    if(!datos.nombre || !datos.categoria || !datos.precio){
+    if (!datos.nombre || !datos.categoria || !datos.precio) {
         alert("Faltan datos obligatorios");
         return;
     }
     return await addDoc(productosRef, {
         ...datos,
-        fecha: new Date()
+        fechaCreacion: new Date()
     });
 }
 
 //2.Eliminar
-export async function eliminarProducto(id){
-    return await deleteDoc(doc(db,"productos",id));
+export async function eliminarProducto(id) {
+    return await deleteDoc(doc(db, "productos", id));
 }
 
 
 //3.Cambios
 export function escucharProductos(callback) {
-    const q = query(productosRef, orderBy("fecha", "desc"));
+    const q = query(productosRef, orderBy("fechaCreacion", "desc"));
 
     return onSnapshot(q, (snapshot) => {
         const productos = [];
@@ -48,8 +48,8 @@ export function escucharProductos(callback) {
 }
 
 //4.Actualizar
-export async function actualizarProducto(id, datosActualizados){
-     const referencia = doc(db,"productos",id);
+export async function actualizarProducto(id, datosActualizados) {
+    const referencia = doc(db, "productos", id);
     return await updateDoc(referencia, datosActualizados);
 }
 

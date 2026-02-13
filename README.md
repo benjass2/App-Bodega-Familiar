@@ -6,7 +6,7 @@ Aplicación web profesional y modular para la gestión de productos y ventas en 
 
 ```text
 app/
-├── css/                    # 🎨 Estilos Organizados
+├── css/                    #  Estilos Organizados
 │   ├── base.css            # Variables y reset global
 │   ├── cards.css           # Diseño de tarjetas de productos
 │   ├── forms.css           # Estilos de formularios e inputs
@@ -15,7 +15,7 @@ app/
 │   ├── modal.css           # Capa visual de ventanas emergentes
 │   └── carrito.css         # Panel lateral y contador de ventas
 │
-├── js/                     # 🧠 Lógica Modular
+├── js/                     #  Lógica Modular
 │   ├── app.js              # DIRECTOR: Único punto de entrada (Orquestador)
 │   ├── estado.js           # Single Source of Truth: Maneja el estado global
 │   ├── carrito.js          # Lógica completa de ventas y cálculo de totales
@@ -30,10 +30,10 @@ app/
 │   └── utils/
 │       └── constantes.js   # Listas de categorías y unidades
 │
-└── index.html              # 🏠 Estructura Base (Sin JS intrusivo)
+└── index.html              #  Estructura Base (Sin JS intrusivo)
 ```
 
-## 🛠️ Documentación Técnica
+##  Documentación Técnica
 
 ### 1. Gestión del Estado (`estado.js`)
 Hemos implementado un sistema de "Estado Central" que guarda la lista de productos y los modos activos (Edición/Borrado). Esto garantiza que todos los componentes vean la misma información al mismo tiempo.
@@ -49,7 +49,7 @@ El carrito detecta automáticamente los clics en las tarjetas de productos.
 ### 4. Interfaz Modular
 Cada elemento de la interfaz (Modales, Filtros, Menú FAB) tiene su propio archivo CSS y JS. Esto significa que si necesitas cambiar el diseño del buscador, solo tienes que ir a `filtros.js` y `forms.css`, sin miedo a romper el carrito.
 
-## 🚀 Características
+##  Características
 - **CRUD en Tiempo Real**: Sincronización inmediata con la base de datos.
 - **Zero Inline JS**: El HTML está limpio de atributos `onclick`, todo se maneja desde el DOM.
 - **Diseño Premium**: Uso de variables CSS para consistencia visual y animaciones suaves.

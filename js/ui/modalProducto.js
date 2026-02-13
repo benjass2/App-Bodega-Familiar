@@ -1,4 +1,4 @@
-//Responsabilidad: Manejar la lógica del formulario (abrir, cerrar, validar, guardar)
+//Maneja la lógica del formulario (abrir, cerrar, validar, guardar)
 
 import { CATEGORIAS, UNIDADES } from "../utils/constantes.js";
 

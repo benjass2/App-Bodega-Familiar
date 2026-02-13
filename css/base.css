@@ -1,5 +1,5 @@
 :root {
-    --color-fondo: #dfecf9d3;
+    --color-fondo: #f0fdffd3;
     --color-primario: #6366f1;
     --color-primario-dark: #4338ca;
     --color-texto: #0f172a;
@@ -16,13 +16,25 @@ body {
     color: var(--color-texto);
 }
 
-h1 {
+.titulo {
     text-align: center;
-    color: var(--color-primario);
-    margin-bottom: 25px;
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 6px;
+    background: linear-gradient(90deg, var(--color-primario), var(--color-primario-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;       
+    letter-spacing: -1px;
+}
+
+.subtitulo {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: #64748b;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
 }
 
 button,
