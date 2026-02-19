@@ -11,13 +11,14 @@ import {
 
 import { productosRef, db } from "../firebase.js";
 
-//1.Guardar
+//1.Guardar  
 export async function guardarProducto(datos) {
 
     if (!datos.nombre || !datos.categoria || !datos.precio) {
         alert("Faltan datos obligatorios");
         return;
     }
+    
     return await addDoc(productosRef, {
         ...datos,
         fechaCreacion: new Date()

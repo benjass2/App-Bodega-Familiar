@@ -55,3 +55,19 @@ Cada elemento de la interfaz (Modales, Filtros, Menú FAB) tiene su propio archi
 - **Diseño Premium**: Uso de variables CSS para consistencia visual y animaciones suaves.
 - **Buscador Reactivo**: Filtra mientras escribes, optimizando la experiencia de usuario.
 
+
+
+#Explicacion de los archivos
+
+- **app.js**: Es el orquestador de la aplicación. Se encarga de importar los demás módulos e inicializar los escuchadores de eventos.
+- **estado.js**: Es el estado central de la aplicación. Guarda la lista de productos y los modos activos (Edición/Borrado).
+- **carrito.js**: Es la lógica del carrito. Se encarga de detectar los clics en las tarjetas de productos y calcular los totales.
+- **firebase.js**: Es la configuración de Firebase. Se encarga de la conexión a la base de datos.
+- **productos.js**: Es la lógica de los productos. Se encarga de las consultas a Firestore (CRUD).
+- **tarjetas.js**: Es el generador de HTML dinámico. Se encarga de generar las tarjetas de productos.
+- **modalProducto.js**: Es el control del formulario de edición/creación. Se encarga de controlar el formulario de edición/creación.
+- **menuAcciones.js**: Es el manejador del menú flotante. Se encarga de manejar el menú flotante.
+- **filtros.js**: Es la lógica de los filtros. Se encarga de la lógica de los filtros.
+- **constantes.js**: Es la lista de categorías y unidades. Se encarga de la lista de categorías y unidades.
+
+

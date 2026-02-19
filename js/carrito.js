@@ -7,7 +7,7 @@ let carrito = [];
 export function toggleCarrito() {
     const panel = document.getElementById("panel-carrito");
     if (panel) {
-        panel.classList.toggle("oculto");
+        panel.classList.toggle("abierto");
     }
 }
 
@@ -37,7 +37,7 @@ export function agregarAlCarrito(idProducto) {
     // Opcional: abrir si es el primero
     if (carrito.length === 1) {
         const panel = document.getElementById("panel-carrito");
-        if (panel.classList.contains("oculto")) toggleCarrito();
+        if (!panel.classList.contains("abierto")) toggleCarrito();
     }
 }
 
