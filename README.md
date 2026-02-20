@@ -71,3 +71,5 @@ Cada elemento de la interfaz (Modales, Filtros, Menú FAB) tiene su propio archi
 - **constantes.js**: Es la lista de categorías y unidades. Se encarga de la lista de categorías y unidades.
 
 
+
+

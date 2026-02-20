@@ -1,4 +1,4 @@
-{ "nombre": "Leche Gloria Azul (Entera)", "precio": 4.80, "categoria": "Lácteos", "marca": "Gloria", "presentacion": "Lata 400g" },
+  { "nombre": "Leche Gloria Azul (Entera)", "precio": 4.80, "categoria": "Lácteos", "marca": "Gloria", "presentacion": "Lata 400g" },
   { "nombre": "Leche Gloria Azul (Pequeña)", "precio": 2.50, "categoria": "Lácteos", "marca": "Gloria", "presentacion": "Lata 170g" },
   { "nombre": "Leche Gloria Roja (Light)", "precio": 4.80, "categoria": "Lácteos", "marca": "Gloria", "presentacion": "Lata 400g" },
   { "nombre": "Leche Gloria Amarilla (Niños)", "precio": 5.00, "categoria": "Lácteos", "marca": "Gloria", "presentacion": "Lata 400g" },

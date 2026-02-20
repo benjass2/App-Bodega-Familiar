@@ -16,11 +16,14 @@ export function obtenerProductosProcesados() {
     );
 
     // 2. Ordenar por precio
-    resultado.sort((a, b) => {
-        const precioA = Number(a.precio) || 0;
-        const precioB = Number(b.precio) || 0;
-        return orden === "mayor-precio" ? precioB - precioA : precioA - precioB;
-    });
+
+    if (orden === "mayor-precio" || orden === "menor-precio") {
+        resultado.sort((a, b) => {
+            const precioA = Number(a.precio) || 0;
+            const precioB = Number(b.precio) || 0;
+            return orden === "mayor-precio" ? precioB - precioA : precioA - precioB;
+        });
+    }               
 
     return resultado;
 }

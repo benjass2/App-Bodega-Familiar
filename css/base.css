@@ -67,3 +67,9 @@ button {
 .oculto {
     display: none !important;
 }
+
+@media (max-width: 400px) {
+    .filtros-container {
+        flex-direction: column;
+    }
+}

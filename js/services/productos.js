@@ -18,7 +18,7 @@ export async function guardarProducto(datos) {
         alert("Faltan datos obligatorios");
         return;
     }
-    
+
     return await addDoc(productosRef, {
         ...datos,
         fechaCreacion: new Date()
@@ -33,19 +33,17 @@ export async function eliminarProducto(id) {
 
 //3.Cambios
 export function escucharProductos(callback) {
-    const q = query(productosRef, orderBy("fechaCreacion", "desc"));
+    const consulta = query(productosRef);
 
-    return onSnapshot(q, (snapshot) => {
-        const productos = [];
-        snapshot.forEach((doc) => {
-            productos.push({
-                id: doc.id,
-                ...doc.data()
-            });
-        });
-
+    onSnapshot(consulta, (snapshot) => {
+        const productos = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
         callback(productos);
     });
+
+
 }
 
 //4.Actualizar
