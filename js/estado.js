@@ -38,6 +38,6 @@ export const setModoEditar = (activo) => {
     }
 };
 
-export const setIdEditando = (id) => {
+export const setEditando = (id) => {
     estado.idEditando = id;
 };

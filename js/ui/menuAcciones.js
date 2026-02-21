@@ -30,8 +30,6 @@ export function configurarMenuAcciones(callbackRenderizar) {
         const nuevoEstado = !esModoEditar();
         setModoEditar(nuevoEstado);
 
-        if (nuevoEstado) alert("✏️ MODO EDICIÓN: Toca una tarjeta");
-
         cerrarMenu();
         callbackRenderizar(); // Repintar para mostrar/ocultar efectos visuales
     });

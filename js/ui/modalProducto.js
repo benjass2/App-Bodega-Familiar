@@ -1,6 +1,7 @@
 //Maneja la lógica del formulario (abrir, cerrar, validar, guardar)
 
 import { CATEGORIAS, UNIDADES } from "../utils/constantes.js";
+import { setEditando } from "../estado.js";
 
 const modal = document.getElementById("modal-agregar");
 const form = {
@@ -34,6 +35,7 @@ export function abrirModal(producto = null) {
 
     if (producto) {
         // MODO EDICIÓN
+        setEditando(producto.id);
         tituloModal.textContent = "✏️ Editar Producto";
         btnGuardar.textContent = "Actualizar";
 
@@ -44,7 +46,8 @@ export function abrirModal(producto = null) {
         form.presentacion.value = producto.presentacion || "";
     } else {
         // MODO CREAR
-        tituloModal.textContent = "✨ Nuevo Producto";
+        setEditando(null);
+        tituloModal.textContent = "Nuevo Producto";
         btnGuardar.textContent = "Guardar";
         limpiarFormulario();
     }
@@ -52,6 +55,7 @@ export function abrirModal(producto = null) {
 
 export function cerrarModal() {
     modal.classList.add("oculto");
+    setEditando(null);
     limpiarFormulario();
 }
 
